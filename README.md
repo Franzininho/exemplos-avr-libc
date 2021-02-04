@@ -11,15 +11,15 @@ Exemplos em linguagem C baixo nível
 
 ## Ferramentas no Linux
 ```bash
-sudo aptitude install gcc-avr
-sudo aptitude install avr-libc
-sudo aptitude install binutils-avr
-sudo aptitude install make
+sudo apt install gcc-avr
+sudo apt install avr-libc
+sudo apt install binutils-avr
+sudo apt install make
 ```
 
 
 ## Usando
 ```bash
-cd ../exemplos-avr-libc/src
-make flash
+cd ../exemplos-avr-libc/exemplos/01-hello
+make all
 ```
