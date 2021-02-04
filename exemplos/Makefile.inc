@@ -2,18 +2,18 @@
 
 DEVICE      = attiny85
 CLOCK      = 16500000L
-PROGRAMMER = ../micronucleus/2.0a4/launcher 
+PROGRAMMER = ../../micronucleus/2.0a4/launcher 
 OBJECTS    = main.o
 # for ATTiny85
 # see http://www.engbedded.com/fusecalc/
 FUSES = -U lfuse:w:0xf1:m -U hfuse:w:0xdf:m -U efuse:w:0xfe:m 
 
 # Tune the lines below only if you know what you are doing:
-PROG = $(PROGRAMMER) -cdigispark --timeout 60
+MICRONUCLEUS = $(PROGRAMMER) -cdigispark --timeout 60
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 # symbolic targets:
-all:	main.hex
+all:	main.hex flash
 
 .c.o:
 	$(COMPILE) -c $< -o $@
@@ -24,18 +24,12 @@ all:	main.hex
 .c.s:
 	$(COMPILE) -S $< -o $@
 
-flash:	all
-	$(PROG)  -Uflash:w:main.hex:i
-
-fuse:
-	$(PROG) $(FUSES)
-
-# Xcode uses the Makefile targets "", "clean" and "install"
-install: flash fuse
+flash: all
+	$(MICRONUCLEUS) -Uflash:w:main.hex:i
 
 # if you use a bootloader, change the command below appropriately:
 load: all
-	$(PROG)  -Uflash:w:main.hex:i
+	$(MICRONUCLEUS)  -Uflash:w:main.hex:i
 
 clean:
 	rm -f main.hex main.elf $(OBJECTS)
