@@ -3,3 +3,5 @@
 *.elf
 *.lss
 *.list
+.vscode
+
