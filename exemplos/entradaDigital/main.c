@@ -35,7 +35,7 @@ int main(void)
  
   setBit(DDRB,PB1); 	// Configura Pino PB1 como saída (Pino do LED)
   clearBit(DDRB,PB0); //configura pino PB0 como entrada (pino do Botão)
-  setBit(PORTB,PB0);  //habilita pull up para a entrada PB0 - gante nivel 
+  setBit(PORTB,PB0);  //habilita pull up para a entrada PB0 - garante nivel 
                       // lógico 1 quando botão não estiver pressionado
   
   /**
