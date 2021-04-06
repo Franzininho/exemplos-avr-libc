@@ -49,12 +49,12 @@ int main(void){
 
     for(;;){
         if(testBit(PORTB,PB5)){ 
-            if(debounce(int PB5)){
+            if(debounce(PB5)){
                 count = 0;
             }            
         }
         if(testBit(PORTB,PB4)){ 
-            if(debounce(int PB4)){
+            if(debounce(PB4)){
                 count++;
             }            
         }
