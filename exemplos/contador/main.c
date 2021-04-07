@@ -51,11 +51,14 @@ int main(void){
         if(testBit(PORTB,PB5)){ 
             if(debounce(PB5)){
                 count = 0;
+                while (testBit(PORTB,PB5)){}
             }            
         }
         if(testBit(PORTB,PB4)){ 
             if(debounce(PB4)){
                 count++;
+                while (testBit(PORTB,PB4)){}
+                
             }            
         }
         count = count % 0x0F;
