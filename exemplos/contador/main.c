@@ -23,11 +23,11 @@
 char debounce(int pino){
     unsigned char i;
     for(i=0;i<30;i++){              //testa o pino varias vezer para evitar leituras erradas
-        if!(testBit(PORTB,pino)){   //testa se o pino deixou de ser 1
-            return false;           //se sim, retorna falso
+        if(!(testBit(PORTB,pino))){   //testa se o pino deixou de ser 1
+            return 0;           //se sim, retorna falso
         }
     }
-    return true;                    //retorna verdadeiro
+    return 1;                    //retorna verdadeiro
 }
 
 
@@ -61,7 +61,7 @@ int main(void){
                 
             }            
         }
-        count = count % 0x0F;                   //limpa o overflow docontador
+        count = count % 0x10;                   //limpa o overflow docontador
         PORTB = ((PORTB & 0xF0) | count);       //manda o contador para PB[3:0]
     }              
 }
