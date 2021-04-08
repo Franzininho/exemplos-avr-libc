@@ -41,7 +41,7 @@ int main(void){
     setBit(DDRB,PB3);       //Configura PB3 como entrada
     setBit(DDRB,PB4);       //Configura PB4 como entrada
 
-    PORTB &= 0xE1;          //manda 0 para PB[3:0]
+    PORTB &= 0xE1;          //manda 0 para PB[4:1]
     
     unsigned char count = 0;
 
