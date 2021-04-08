@@ -35,33 +35,32 @@ char debounce(int pino){
 
 int main(void){
     //Configuração de PORTB
-    setBit(DDRB,PB0);       //Configura PB0 como entrada
+    clearBit(DDRB,PB0);     //Configura PB0 como saida
     setBit(DDRB,PB1);       //Configura PB1 como entrada
     setBit(DDRB,PB2);       //Configura PB2 como entrada
     setBit(DDRB,PB3);       //Configura PB3 como entrada
-    clearBit(DDRB,PB4);     //Configura PB4 como saida
-    clearBit(DDRB,PB5);     //Configura PB5 como saida
+    setBit(DDRB,PB4);       //Configura PB4 como entrada
 
-    PORTB &= 0xF0;          //manda 0 para PB[3:0]
+    PORTB &= 0xE1;          //manda 0 para PB[3:0]
     
     unsigned char count = 0;
 
     for(;;){                   //loop infinito
 
-        if(testBit(PORTB,PB5)){                 //testa de PB5 é 1
+       /* if(testBit(PORTB,PB5)){                 //testa de PB5 é 1
             if(debounce(PB5)){                  //verifica se realmente foi um aperto de botão
                 count = 0;                      //se sim, reseta o contador
                 while (testBit(PORTB,PB5)){}    //espera o botão parar de ser precionado
             }            
-        }
-        if(testBit(PORTB,PB4)){                 //testa de PB4 é 1
-            if(debounce(PB4)){                  //verifica se realmente foi um aperto de botão
+        }*/
+        if(testBit(PORTB,PB0)){                 //testa de PB4 é 1
+            if(debounce(PB0)){                  //verifica se realmente foi um aperto de botão
                 count++;                        //se sim, incrementa o contador
-                while (testBit(PORTB,PB4)){}    //espera o botão parar de ser precionado
+                while (testBit(PORTB,PB0)){}    //espera o botão parar de ser precionado
                 
             }            
         }
         count = count % 0x10;                   //limpa o overflow docontador
-        PORTB = ((PORTB & 0xF0) | count);       //manda o contador para PB[3:0]
+        PORTB = ((PORTB & 0xE1) | (count<<1));       //manda o contador para PB[3:0]
     }              
 }
