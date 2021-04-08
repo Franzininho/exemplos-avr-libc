@@ -9,7 +9,6 @@
  */
 
 #include <avr/io.h>
-#include <util/delay.h> 
 
 #define F_CPU 16500000L
 
@@ -23,45 +22,46 @@
 //debounce do push button para desconciderarmos ruido e bouncing do botão
 char debounce(int pino){
     unsigned char i;
-    for(i=0;i<30;i++){
-        if(testBit(PORTB,pino)){
-            return false;
+    for(i=0;i<30;i++){              //testa o pino varias vezer para evitar leituras erradas
+        if!(testBit(PORTB,pino)){   //testa se o pino deixou de ser 1
+            return false;           //se sim, retorna falso
         }
     }
-    return true;
+    return true;                    //retorna verdadeiro
 }
 
 
 
 
 int main(void){
+    //Configuração de PORTB
+    setBit(DDRB,PB0);       //Configura PB0 como entrada
+    setBit(DDRB,PB1);       //Configura PB1 como entrada
+    setBit(DDRB,PB2);       //Configura PB2 como entrada
+    setBit(DDRB,PB3);       //Configura PB3 como entrada
+    clearBit(DDRB,PB4);     //Configura PB4 como saida
+    clearBit(DDRB,PB5);     //Configura PB5 como saida
 
-    setBit(DDRB,PB0);
-    setBit(DDRB,PB1);
-    setBit(DDRB,PB2);
-    setBit(DDRB,PB3);
-    clearBit(DDRB,PB4);
-    clearBit(DDRB,PB5);
-
-    PORTB &= 0xF0;
+    PORTB &= 0xF0;          //manda 0 para PB[3:0]
     
     unsigned char count = 0;
 
-    for(;;){
-        if(testBit(PORTB,PB5)){ 
-            if(debounce(PB5)){
-                count = 0;
-                while (testBit(PORTB,PB5)){}
+    for(;;){                   //loop infinito
+
+        if(testBit(PORTB,PB5)){                 //testa de PB5 é 1
+            if(debounce(PB5)){                  //verifica se realmente foi um aperto de botão
+                count = 0;                      //se sim, reseta o contador
+                while (testBit(PORTB,PB5)){}    //espera o botão parar de ser precionado
             }            
         }
-        if(testBit(PORTB,PB4)){ 
-            if(debounce(PB4)){
-                count++;
-                while (testBit(PORTB,PB4)){}
+        if(testBit(PORTB,PB4)){                 //testa de PB4 é 1
+            if(debounce(PB4)){                  //verifica se realmente foi um aperto de botão
+                count++;                        //se sim, incrementa o contador
+                while (testBit(PORTB,PB4)){}    //espera o botão parar de ser precionado
                 
             }            
         }
-        count = count % 0x0F;
-        PORTB = ((PORTB & 0xF0) | count);
+        count = count % 0x0F;                   //limpa o overflow docontador
+        PORTB = ((PORTB & 0xF0) | count);       //manda o contador para PB[3:0]
     }              
 }
