@@ -3,7 +3,7 @@
  * @file main.c
  * @author Eduardo Dueñas
  * @brief Exemplo de contador de eventos
- * @version 0.1
+ * @version 1.0
  * @date 06/04/2021
  * 
  */
@@ -23,7 +23,7 @@
 char debounce(int pino){
     unsigned char i;
     for(i=0;i<30;i++){              //testa o pino varias vezer para evitar leituras erradas
-        if(!(testBit(PORTB,pino))){   //testa se o pino deixou de ser 1
+        if(!(testBit(PINB,pino))){   //testa se o pino deixou de ser 1
             return 0;           //se sim, retorna falso
         }
     }
@@ -47,13 +47,7 @@ int main(void){
 
     for(;;){                   //loop infinito
 
-       /* if(testBit(PORTB,PB5)){                 //testa de PB5 é 1
-            if(debounce(PB5)){                  //verifica se realmente foi um aperto de botão
-                count = 0;                      //se sim, reseta o contador
-                while (testBit(PORTB,PB5)){}    //espera o botão parar de ser precionado
-            }            
-        }*/
-        if(testBit(PORTB,PB0)){                 //testa de PB4 é 1
+        if(testBit(PINB,PB0)){                 //testa de PB0 é 1
             if(debounce(PB0)){                  //verifica se realmente foi um aperto de botão
                 count++;                        //se sim, incrementa o contador
                 while (testBit(PORTB,PB0)){}    //espera o botão parar de ser precionado
@@ -61,6 +55,6 @@ int main(void){
             }            
         }
         count = count % 0x10;                   //limpa o overflow docontador
-        PORTB = ((PORTB & 0xE1) | (count<<1));       //manda o contador para PB[3:0]
+        PORTB = ((PORTB & 0xE1) | (count<<1));       //manda o contador para PB[4:1]
     }              
 }
