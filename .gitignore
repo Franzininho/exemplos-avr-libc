@@ -4,4 +4,5 @@
 *.lss
 *.list
 .vscode
+/documentacao/site
 

@@ -6,7 +6,7 @@ PROGRAMMER = ../../micronucleus/2.0a4/launcher
 OBJECTS    = main.o
 # for ATTiny85
 # see http://www.engbedded.com/fusecalc/
-FUSES = -U lfuse:w:0xf1:m -U hfuse:w:0xdf:m -U efuse:w:0xfe:m 
+FUSES = -U lfuse:w:0xe1:m -U hfuse:w:0xdd:m -U efuse:w:0xfe:m 
 
 # Tune the lines below only if you know what you are doing:
 MICRONUCLEUS = $(PROGRAMMER) -cdigispark --timeout 60
