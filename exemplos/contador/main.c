@@ -21,8 +21,8 @@
 
 //debounce do push button para desconciderarmos ruido e bouncing do botão
 char debounce(int pino){
-    unsigned char i;
-    for(i=0;i<30;i++){              //testa o pino varias vezer para evitar leituras erradas
+    unsigned int i;
+    for(i=0;i<300;i++){              //testa o pino varias vezer para evitar leituras erradas
         if(!(testBit(PINB,pino))){   //testa se o pino deixou de ser 1
             return 0;           //se sim, retorna falso
         }
@@ -50,7 +50,7 @@ int main(void){
         if(testBit(PINB,PB0)){                 //testa de PB0 é 1
             if(debounce(PB0)){                  //verifica se realmente foi um aperto de botão
                 count++;                        //se sim, incrementa o contador
-                while (testBit(PORTB,PB0)){}    //espera o botão parar de ser precionado
+                while (testBit(PINB,PB0)){}    //espera o botão parar de ser precionado
                 
             }            
         }
