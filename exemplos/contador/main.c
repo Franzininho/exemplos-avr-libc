@@ -22,7 +22,7 @@
 //debounce do push button para desconciderarmos ruido e bouncing do botão
 char debounce(int pino){
     unsigned int i;
-    for(i=0;i<900;i++){              //testa o pino varias vezer para evitar leituras erradas
+    for(i=0;i<20000;i++){            //testa o pino varias vezer para evitar leituras erradas
         if(!(testBit(PINB,pino))){   //testa se o pino deixou de ser 1
             return 0;           //se sim, retorna falso
         }
