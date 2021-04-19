@@ -25,14 +25,14 @@
 volatile unsigned char count = 0;
 
 ISR(INT0_vect){
-    cli();
-    if(debounce(PB2)){
+    cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
+    if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
         count++;
         count %= 0x10;
         PORTB = ((PORTB & 0xE7) | ((count>>2)<<3));
         PORTB = ((PORTB & 0xFC) | (count&0x03));
     }
-    sei();
+    sei();                  // Reabilita interrupções globais
 }
 
 
