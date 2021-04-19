@@ -1,0 +1,4 @@
+site_name: Exemplos AVR LIBC
+
+theme:
+    name: readthedocs
