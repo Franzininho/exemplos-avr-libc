@@ -15,6 +15,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/sleep.h>
 
 #define F_CPU 16500000L
 
@@ -29,6 +30,16 @@ volatile unsigned char test = 0;
 unsigned int pin = 0;
 
 
+//Debounce do push button para desconciderarmos ruido e bouncing do botão
+char debounce(int pino){
+    pin=pino;
+    //Coloca um timer para cada 1000 ciclos de clk para testar o push buttom
+    TCNT0=131;                  //256-(1000/8)=131
+    setBit(TIMSK,TOIE0);        //Habilita interrupções por timer overflow
+    test=0;
+}
+
+
 ISR(INT0_vect){             //Tratamento de interrupções de pulso externo
     clearBit(GIMSK,INT0);    //Desabilita interrupções do INT0 durante o tratamento da interrupção
     debounce(PB2);/*
@@ -40,16 +51,6 @@ ISR(INT0_vect){             //Tratamento de interrupções de pulso externo
     }
     sei();                  // Reabilita interrupções globais
     */
-}
-
-
-//Debounce do push button para desconciderarmos ruido e bouncing do botão
-char debounce(int pino){
-    pin=pino;
-    //Coloca um timer para cada 1000 ciclos de clk para testar o push buttom
-    TCNT0=131;                  //256-(1000/8)=131
-    setBit(TIMSK,TOIE0);        //Habilita interrupções por timer overflow
-    test=0;
 }
 
 
@@ -82,12 +83,17 @@ int main(void){
     setBit(DDRB,PB3);       //Configura PB3 como entrada
     setBit(DDRB,PB4);       //Configura PB4 como entrada
 
-    PORTB &= 0xE4;          //manda 0 para PB[4:3] e PB[1:0]
+    PORTB &= 0xE4;          //Manda 0 para PB[4:3] e PB[1:0]
 
     //Configuração do timer
-    TCCR0A=0x00;                      //Modo Normal
+    TCCR0A=0x00;                //Modo Normal
     TCCR0B=0x00;
-    TCCR0B |= 0x02;   //prescaler de 8
+    TCCR0B |= 0x02;             //Prescaler de 8
+
+
+    //Configuração do modo sleep
+    clearBit(MCUCR,SM0);        //Configura sleep mode como idle
+    clearBit(MCUCR,SM1);
 
     //Configuração de Interrupção externa
     setBit(GIMSK,INT0);     //Habilita interrupções externas no INT0
@@ -95,8 +101,8 @@ int main(void){
     sei();                  //Habilita interrupções globais
 
 
-
-    for(;;){                   //loop infinito
-        //aqui você pode colocar outra aplicação para rodar simultaniamenta ao contador no lugar do sleep
+    for(;;){                   //Loop infinito
+        //Aqui você pode colocar outra aplicação para rodar simultaniamenta ao contador no lugar do sleep
+        sleep_mode();   //entra no sleep mode
     }              
 }
