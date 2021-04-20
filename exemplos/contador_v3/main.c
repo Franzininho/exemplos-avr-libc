@@ -25,9 +25,13 @@
 #define testBit(valor,bit)    (valor & (1<<bit))
 
 volatile unsigned char count = 0;
+volatile unsigned char test = 0;
+unsigned int pin = 0;
 
-ISR(INT0_vect){
-    cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
+
+ISR(INT0_vect){             //Tratamento de interrupções de pulso externo
+    clearBit(GIMSK,INT0);    //Desabilita interrupções do INT0 durante o tratamento da interrupção
+    debounce(PB2);/*
     if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
         count++;
         count %= 0x10;
@@ -35,19 +39,40 @@ ISR(INT0_vect){
         PORTB = ((PORTB & 0xFC) | (count&0x03));
     }
     sei();                  // Reabilita interrupções globais
+    */
 }
 
 
-//debounce do push button para desconciderarmos ruido e bouncing do botão
+//Debounce do push button para desconciderarmos ruido e bouncing do botão
 char debounce(int pino){
-    unsigned int i;
-    for(i=0;i<20000;i++){              //testa o pino varias vezer para evitar leituras erradas
-        if(!(testBit(PINB,pino))){   //testa se o pino deixou de ser 1
-            return 0;           //se sim, retorna falso
+    pin=pino;
+    //Coloca um timer para cada 1000 ciclos de clk para testar o push buttom
+    TCNT0=131;                  //256-(1000/8)=131
+    setBit(TIMSK,TOIE0);        //Habilita interrupções por timer overflow
+    test=0;
+}
+
+
+ISR(TIMER0_OVF_vect){       //Tratamento de interrupções de timer overflow
+    if(testBit(PINB,pin)){
+        test++;
+        if(test>=20){
+            count++;
+            count %= 0x10;
+            PORTB = ((PORTB & 0xE7) | ((count>>2)<<3));
+            PORTB = ((PORTB & 0xFC) | (count&0x03));
+            clearBit(TIMSK,TOIE0);  //Desabilita interrupções por timer overflow
+            setBit(GIMSK,INT0);     //Reabilita interrupções externas no INT0
         }
     }
-    return 1;                    //retorna verdadeiro
+    else{
+        clearBit(TIMSK,TOIE0);  //Desabilita interrupções por timer overflow
+        setBit(GIMSK,INT0);     //Reabilita interrupções externas no INT0
+    }
+
 }
+
+
 
 int main(void){
     //Configuração de PORTB
@@ -59,13 +84,19 @@ int main(void){
 
     PORTB &= 0xE4;          //manda 0 para PB[4:3] e PB[1:0]
 
+    //Configuração do timer
+    TCCR0A=0x00;                      //Modo Normal
+    TCCR0B=0x00;
+    TCCR0B |= 0x02;   //prescaler de 8
+
     //Configuração de Interrupção externa
-    GIMSK |= (1<<INT0);     //Habilita interrupções externas no INT0
+    setBit(GIMSK,INT0);     //Habilita interrupções externas no INT0
     MCUCR |= 0x03;          //Seta interrupções para borda de subida
     sei();                  //Habilita interrupções globais
 
 
+
     for(;;){                   //loop infinito
-        //aqui você pode colocar outra aplicação para rodar simultaniamenta ao contador
+        //aqui você pode colocar outra aplicação para rodar simultaniamenta ao contador no lugar do sleep
     }              
 }
