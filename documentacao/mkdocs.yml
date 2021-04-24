@@ -4,20 +4,15 @@ site_favicon: img/favicon.ico
 repo_url: https://github.com/Franzininho/exemplos-avr-libc
 
 nav:
-    - Primeiros passos: 0x00_index.md
+    - Primeiros passos: index.md
     - Hello, World!: 0x01_hello.md
     - Saída Digital: 0x02_saida_digital.md
     - Entrada digital: 0x03_entrada_digital.md
     - Timer0: 0x04_timer0.md
     - Timer0 interrupção: 0x05_timer0_int.md
 
+theme: readthedocs
 
-
-theme:
-    name: readthedocs
-    highlightjs: true
-    hljs_languages:
-        - c
 
 
 markdown_extensions:
