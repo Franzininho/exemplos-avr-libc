@@ -23,3 +23,15 @@ sudo apt install make
 cd ../exemplos-avr-libc/exemplos/01-hello
 make all
 ```
+
+## Contribuindo
+
+- Incluir pasta do exemplos
+- Incluir md do exemplo na documentação
+
+
+## Documentação
+
+- Instação Mkdocs: https://www.mkdocs.org/#installation
+- Enviar pull Request do exemplo.
+- Não fazer o deploy no gh-pages. Isso será feito após aprovção do PR
