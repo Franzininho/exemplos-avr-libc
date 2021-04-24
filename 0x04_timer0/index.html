@@ -8,17 +8,24 @@
   
   
   
-  <link rel="shortcut icon" href="./img/favicon.ico">
+  <link rel="shortcut icon" href="../img/favicon.ico">
   
-  <title>Exemplos AVR LIBC</title>
+  <title>Timer0 - Exemplos AVR LIBC</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="./css/theme.css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" />
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
-  <script src="./js/jquery-2.1.1.min.js" defer></script>
-  <script src="./js/modernizr-2.8.3.min.js" defer></script>
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Timer0";
+    var mkdocs_page_input_path = "0x04_timer0.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/c.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
@@ -33,9 +40,9 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="./." class="icon icon-home"> Exemplos AVR LIBC</a>
+        <a href=".." class="icon icon-home"> Exemplos AVR LIBC</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -43,27 +50,27 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="./0x00_index/">Primeiros passos</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x00_index/">Primeiros passos</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="./0x01_hello/">Hello, World!</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x01_hello/">Hello, World!</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="./0x02_saida_digital/">Saída Digital</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x02_saida_digital/">Saída Digital</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="./0x03_entrada_digital/">Entrada digital</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x03_entrada_digital/">Entrada digital</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Timer0</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="./0x04_timer0/">Timer0</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="./0x05_timer0_int/">Timer0 interrupção</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x05_timer0_int/">Timer0 interrupção</a>
                     </li>
                 </ul>
       </div>
@@ -75,7 +82,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="./.">Exemplos AVR LIBC</a>
+        <a href="..">Exemplos AVR LIBC</a>
       </nav>
 
       
@@ -83,10 +90,15 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="./.">Docs</a> &raquo;</li>
+    <li><a href="..">Docs</a> &raquo;</li>
     
+      
     
+    <li>Timer0</li>
     <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Franzininho/exemplos-avr-libc/edit/master/docs/0x04_timer0.md"
+          class="icon icon-github"> Edit on GitHub</a>
       
     </li>
   </ul>
@@ -96,22 +108,20 @@
           <div role="main">
             <div class="section">
               
-
-  <h1 id="search">Search Results</h1>
-
-  <form id="content_search" action="search.html">
-    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-    <input name="q" id="mkdocs-search-query" type="text" class="search_input search-query ui-autocomplete-input" placeholder="Search the Docs" autocomplete="off" autofocus title="Type search term here">
-  </form>
-
-  <div id="mkdocs-search-results" class="search-results">
-    Searching...
-  </div>
-
-
+                
+              
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../0x05_timer0_int/" class="btn btn-neutral float-right" title="Timer0 interrupção">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../0x03_entrada_digital/" class="btn btn-neutral" title="Entrada digital"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -137,12 +147,16 @@
           <a href="https://github.com/Franzininho/exemplos-avr-libc/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
+        <span><a href="../0x03_entrada_digital/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../0x05_timer0_int/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="./js/theme.js" defer></script>
-      <script src="./search/main.js" defer></script>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
     <script defer>
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);
