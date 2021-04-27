@@ -53,7 +53,7 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#ferramentas-necessarias">Ferramentas necessárias</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#instalacao-das-ferramentas-necessarias">Instalação das ferramentas necessárias:</a>
+    <li class="toctree-l3"><a class="reference internal" href="#instalacao-das-ferramentas-necessarias-linux">Instalação das ferramentas necessárias (Linux):</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#compilacao-no-linux">Compilação no Linux</a>
     </li>
@@ -120,31 +120,32 @@
             <div class="section">
               
                 <h1 id="exemplos-avr-libc-franininho-diy">Exemplos AVR LIBC - Franininho DIY</h1>
-<p>Esse material apresenta uma sequencia de exemplos e contéudos para programação da Franzininho DIY usando a AVR LIB C.</p>
+<p>O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas areas.</p>
+<p>Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais proxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do MCU) para programação da Franzininho DIY usando a AVR LIB C.</p>
 <p>É importante que você tenha o <a href="https://github.com/Franzininho/imagens-franzininho/blob/main/franzininho_diy/Pinagem-completa-Franzininho-DIY-V2RV2.png">pinout da Franzininho DIY</a> para fazer as ligações conforme orientações nos exemplos.</p>
 <p><img alt="pinout Franzininho DIY" src="img/0x00/Pinagem-Franzininho-DIY-V2RV2.png" /></p>
 <h2 id="ferramentas-necessarias">Ferramentas necessárias</h2>
-<p>Você não precisará de um compilador específico ou IDE para compilar os exemplos apresentados. As ferramentas necessárias são:</p>
+<p>Você não precisará de um compilador específico ou IDE para compilar os exemplos apresentados. Porém é importante que tenha as seguintes ferramentas instaladas na sua máquina:</p>
 <ul>
 <li>GCC AVR</li>
 <li>avr libc</li>
 <li>binutils-avr</li>
 <li>make</li>
 </ul>
-<h3 id="instalacao-das-ferramentas-necessarias">Instalação das ferramentas necessárias:</h3>
+<h3 id="instalacao-das-ferramentas-necessarias-linux">Instalação das ferramentas necessárias (Linux):</h3>
 <pre><code class="language-shell">sudo apt install gcc-avr
 sudo apt install avr-libc
 sudo apt install binutils-avr
 sudo apt install make
 </code></pre>
-<p>A placa Franzininho deve estar com o bootloader micronucleus.</p>
+<p>A placa Franzininho deve estar com o bootloader Micronucleus.</p>
 <h3 id="compilacao-no-linux">Compilação no Linux</h3>
 <pre><code class="language-shell">cd ../exemplos-avr-libc/exemplos/01-hello
 make all
 </code></pre>
 <h2 id="lista-de-exemplos">Lista de exemplos</h2>
 <ol>
-<li>hello - Exemplo para blink LED na placa Franzinino - Apenas para garantir que toochains está ok</li>
+<li>Hello - Exemplo para blink LED na placa Franzininho - Apenas para garantir que toolchains está ok</li>
 <li>SaidaDigital - Exemplo para explorar as saídas digitais e o uso de macros</li>
 <li>EntradaDigital - Exemplo para leitura de botão e acionamento de LED</li>
 <li>timer0 - Exibe como usar o timer zero para temporização</li>
@@ -205,5 +206,5 @@ make all
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-04-24 20:24:45.380535+00:00
+Build Date UTC : 2021-04-27 18:09:12.031388+00:00
 -->

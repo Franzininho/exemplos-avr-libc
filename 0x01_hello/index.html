@@ -55,6 +55,22 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Hello, World!</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introducao">Introdução</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#recursos-necessarios">Recursos Necessários</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hello-world-em-linguagem-c">Hello, World em linguagem C</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#codigo">Código</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compilacao-e-upload">Compilação e upload</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resultados">Resultados</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusao">Conclusão</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -110,6 +126,72 @@
             <div class="section">
               
                 <h1 id="hello-world">Hello, World!</h1>
+<h2 id="introducao">Introdução</h2>
+<p>Nesse exemplo vamos dar os nossos primeiros passos na programação da Franzininho DIY usando a AVR LIBC.
+Como de costume o nosso "Hello, World!" na eletrônica será um blink LED. Ao final desse experimento você terá uma estrutura mínima para desenvolver aplicações para o ATtiny85 em C.</p>
+<p>Bora, colocar em prática!</p>
+<h2 id="recursos-necessarios">Recursos Necessários</h2>
+<ul>
+<li>Placa Franzininho DIY(com Micronucleus)</li>
+<li>Computador com as ferramentas de software instaladas(link)</li>
+</ul>
+<h2 id="hello-world-em-linguagem-c">Hello, World em linguagem C</h2>
+<p>Esse exemplo básico nos dará estrutura para todos nossos exemplos daqui pra frente. Como já mencionado, vamos usar a linguagem C em conjunto com a biblioteca avr lib c. Para esse exemplo você só precisará da placa e as ferramentas de softwares.</p>
+<p>O código exibe a estrutura mínima de um programa em linguagem C para microcontroladores. Se você tem dificuldades com a linguagem C, recomendo que confira os seguintes materiais:
+- Playlist Linguagem C
+- Artigo</p>
+<p>Nesse momento é importante que você se atente a estrutura. Vamos usar alguns registradores para acionar o LED, mas não serão o foco da explicação. Confira os comentários no código a seguir:</p>
+<h3 id="codigo">Código</h3>
+<pre><code>#include &lt;avr/io.h&gt;   //biblioteca para acesso aos registradores do MCU
+#include &lt;util/delay.h&gt; //biblioteca para funções de delay
+
+#define F_CPU 16500000L // Frequencia de clock que o mcu está trabalhando
+
+/**
+ * @brief Função main
+ * Essa é a função principal onde é inciada aaplicação
+ * @return int
+ */
+int main(void)
+{
+
+  DDRB |= (1 &lt;&lt; PB1);       // Configura Pino PB1 como saída (Pino do LED)
+
+  /**
+   * @brief loop infinito
+   * O programar ficará nesse loop enquanto a placa estiver ligada
+   */
+  while (1)                 // enquanto verdadeiro (nesse caso sempre será verdadiro)
+  {                         //faz:
+    PORTB |= (1 &lt;&lt; PB1);    // Liga LED
+    _delay_ms(500);           // delay 500 ms
+
+    PORTB &amp;= ~(1 &lt;&lt; PB1);   // desliga LED
+    _delay_ms(500);         // delay 500 ms
+  }                                                
+  return (0);             //necessário um retorno (pois a função retorna int) mesmo que a função nunca retornará                 
+}
+</code></pre>
+<h3 id="compilacao-e-upload">Compilação e upload</h3>
+<p>para compilar o programa, acesse a pasta do exemplo e em seguida o comando  <code>make</code>:</p>
+<pre><code>exemplos-avr-libc/exemplos/hello$ make
+</code></pre>
+<p>Já temos o makefile configurado na pasta, assim, será feita a compilação e em seguida aparecerá a mensagem para conectar a placa:</p>
+<pre><code>../../micronucleus/2.0a4/launcher  -cdigispark --timeout 60 -Uflash:w:main.hex:i
+Running Digispark Uploader...
+Plug in device now... (will timeout in 60 seconds)
+&gt; Please plug in the device (will time out in 60 seconds) ...
+</code></pre>
+<p>Conecte a placa no PC ou pressione o botão de Reset se ela já estiver conectada.</p>
+<p>Será iniciado o upload.</p>
+<h3 id="resultados">Resultados</h3>
+<p>Nesse exemplo o LED irá piscar em intervalos de 500 ms (on) e 500 ms (off).</p>
+<p>No próximo exemplo vamos detalhar sobre os registradores de IO. Nesse momento, além da estrutura inicial é importante que você entenda como usar a função <code>_delay_ms()</code>.</p>
+<p>Essa função espera o tempo passado em milissegundos.</p>
+<p>Altere o código para que o led fique 100 ms(on) e 1000 ms (off), veja o efeito.</p>
+<h2 id="conclusao">Conclusão</h2>
+<p>Nesse exemplo tivemos o primeiro contato com a programação em linguagem C para microcontroladores. Notamos que devemos incluir as bibliotecas externas através do <code>#include</code> e que o programa precisa necessariamente ter a função <code>int main(void)</code>.</p>
+<p>Dentro da função main temos um loop infinito onde os comandos se repetirão enquanto a placa estiver ligada.</p>
               
             </div>
           </div>
