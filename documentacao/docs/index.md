@@ -9,7 +9,9 @@ some_url:
 
 # Exemplos AVR LIBC - Franininho DIY
 
-Esse material apresenta uma sequencia de exemplos e contéudos para programação da Franzininho DIY usando a AVR LIB C.
+O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas areas.
+
+Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais proxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do MCU) para programação da Franzininho DIY usando a AVR LIB C.
 
 É importante que você tenha o [pinout da Franzininho DIY](https://github.com/Franzininho/imagens-franzininho/blob/main/franzininho_diy/Pinagem-completa-Franzininho-DIY-V2RV2.png) para fazer as ligações conforme orientações nos exemplos.
 
@@ -18,14 +20,14 @@ Esse material apresenta uma sequencia de exemplos e contéudos para programaçã
 
 ## Ferramentas necessárias
 
-Você não precisará de um compilador específico ou IDE para compilar os exemplos apresentados. As ferramentas necessárias são:
+Você não precisará de um compilador específico ou IDE para compilar os exemplos apresentados. Porém é importante que tenha as seguintes ferramentas instaladas na sua máquina:
 
 - GCC AVR
 - avr libc
 - binutils-avr
 - make
 
-### Instalação das ferramentas necessárias:
+### Instalação das ferramentas necessárias (Linux):
 ```shell
 sudo apt install gcc-avr
 sudo apt install avr-libc
@@ -33,7 +35,7 @@ sudo apt install binutils-avr
 sudo apt install make
 ```
 
-A placa Franzininho deve estar com o bootloader micronucleus.
+A placa Franzininho deve estar com o bootloader Micronucleus.
 
 
 ### Compilação no Linux
@@ -46,7 +48,7 @@ make all
 
 ## Lista de exemplos
 
-1. hello - Exemplo para blink LED na placa Franzinino - Apenas para garantir que toochains está ok
+1. Hello - Exemplo para blink LED na placa Franzininho - Apenas para garantir que toolchains está ok
 2. SaidaDigital - Exemplo para explorar as saídas digitais e o uso de macros
 3. EntradaDigital - Exemplo para leitura de botão e acionamento de LED
 4. timer0 - Exibe como usar o timer zero para temporização
