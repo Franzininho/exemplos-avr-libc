@@ -6,21 +6,16 @@
  * @version 1.0
  * @date 27/04/2021
  * 
- * O programa é um desenvolvimento em cima do contador_v2 uma com alterações no loop infinito que 
- * havia ficdo em aberto para outras aplicações para o modo sleep para diminuira o gasto de energia e
- * alterar o debouce para interrupção, aumentando a eficiência do código. O código pode ser usado com 
- * outras aplicações no lugar do sleep.
+ * O programa é uma aplicação do PWM para aumentar e diminuir a luminosidade do led por frequência
  * 
  */
 
 #include <avr/io.h>
-#include <avr/interrupt.h>
+#include <util/delay.h>
 
 #define F_CPU 16500000L
 
-#define DELAY   30000
-
- 	
+   
 #define setBit(valor,bit) (valor |= (1<<bit))
 #define clearBit(valor,bit) (valor &= ~(1<<bit))
 #define toogleBit(valor,bit) (valor ^= (1<<bit))
@@ -38,15 +33,14 @@ int main(void){
 
 
     for(;;){                   //Loop infinito
-        int i,j;
+        unsigned int i,j;
         for(i=0;i<0xFF;i++){
-            for (j=0;j<DELAY;j++){}
+            _delay_ms(4);
             OCR0A=i;
         }
-        //toogleBit(TCCR0A,6);
-        for(i=0xFF;i>0;i--){
-            for (j=0;j<DELAY;j++){}
-            OCR0A=i;
+        for(i=0;i<0xFF;i++){
+            _delay_ms(4);
+            OCR0A=0xFF-i;
         }
     }              
 }
