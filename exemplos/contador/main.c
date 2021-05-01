@@ -35,9 +35,9 @@ char debounce(int pino){
 
 int main(void){
     //Configuração de PORTB
-    clearBit(DDRB,PB2);     //Configura PB2 como entrada
-    setBit(DDRB,PB0);       //Configura PB0 como saida
+    clearBit(DDRB,PB0);     //Configura PB0 como entrada
     setBit(DDRB,PB1);       //Configura PB1 como saida
+    setBit(DDRB,PB2);       //Configura PB2 como saida
     setBit(DDRB,PB3);       //Configura PB3 como saida
     setBit(DDRB,PB4);       //Configura PB4 como saida
     
