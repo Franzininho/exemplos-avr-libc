@@ -35,12 +35,12 @@ char debounce(int pino){
 
 int main(void){
     //Configuração de PORTB
-    clearBit(DDRB,PB0);     //Configura PB0 como saida
-    setBit(DDRB,PB1);       //Configura PB1 como entrada
-    setBit(DDRB,PB2);       //Configura PB2 como entrada
-    setBit(DDRB,PB3);       //Configura PB3 como entrada
-    setBit(DDRB,PB4);       //Configura PB4 como entrada
-
+    clearBit(DDRB,PB2);     //Configura PB2 como entrada
+    setBit(DDRB,PB0);       //Configura PB0 como saida
+    setBit(DDRB,PB1);       //Configura PB1 como saida
+    setBit(DDRB,PB3);       //Configura PB3 como saida
+    setBit(DDRB,PB4);       //Configura PB4 como saida
+    
     PORTB &= 0xE1;          //manda 0 para PB[4:1]
     
     unsigned char count = 0;
