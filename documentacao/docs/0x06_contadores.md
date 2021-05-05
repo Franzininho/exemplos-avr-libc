@@ -2,14 +2,14 @@
 |-------|---------|---------|------|----------|
 |Contador de pulsos externos | Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY | Eduardo Dueñas | 05/05/2020 | [Quem sou eu](https://github.com/EduardoDuenas) |
 
-#**Contador de pulsos externos**
+# **Contador de pulsos externos**
  
-##**Introdução**    
+## **Introdução**    
 Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY. Vamos explorar as formas mais simples e as mais complexas de contar eventos e as vantagens de cada uma. Nesses exemplos vamos aprender a usar o timer e a fazer debounce, necessário para lermos apenas eventos válidos e não ler o mesmo evento mais de uma vez.
  
 Boa prática!
  
-##**Recursos necessários**
+## **Recursos necessários**
  
 - Franzininho DIY (com Micronúcleos)
 - 4 leds de 3mm
@@ -19,17 +19,17 @@ Boa prática!
 - 7 jumpers macho-fêmea
 - 7 jumpers macho-macho
  
-##**Contadores**
+## **Contadores**
  
 Temos três exemplos de contadores da versão 1 a 3, e aumentando a complexidade do código e dos recursos utilizados.
  
-###**Contador_v1**
+### **Contador_v1**
  
 Nesse exemplo vamos utilizar loops para fazer a verificação de eventos. Essa forma de se fazer a contagem, apesar de ser mais simples de se entender e criar, é pouco eficiente, tanto a nível de processamento, quanto ao de energia.
  
 O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca "avr/io.h". Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
  
-####**Código**
+#### **Código**
 ```c
 /**
  * 
@@ -92,13 +92,13 @@ int main(void){
 }
 ```
  
-####**Montagem**
+#### **Montagem**
  
 ![][Circuito v1]
  
 Como mostrado na imagem, os leds são ligados nas saídas PortB[4:1] e o botão no PortB[0].
  
-####**Compilação e upload**
+#### **Compilação e upload**
  
 Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando `make`:
 ```
@@ -114,23 +114,23 @@ Plug in device now... (will timeout in 60 seconds)
 ```
 Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.
  
-####**Resultado**
+#### **Resultado**
  
 Os leds devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.
  
-####**Análise**
+#### **Análise**
  
 Esse código é de simples compreensão usando apenas um for para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se for confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas. 
  
 De forma geral esse código funciona, mas há muito desperdício de processamento, pois há muitos momentos que o processador não está fazendo nada, apenas esperando algo acontecer ou um certo tempo passar, nesse tempo ele poderia estar fazendo outra tarefas ou ficar em modo econômico de energia, que veremos nos próximos exemplos.
  
-###**Contador_v2**
+### **Contador_v2**
  
 Nesse exemplo vamos começar a usar interrupções para ler os pulsos. Vamos ver quais são as vantagens desse método e o que pode ser melhorado.
  
 O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca "avr/io.h" e a biblioteca "avr/interrupt.h". Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
  
-####**Código**
+#### **Código**
 ```c
 /**
  * 
@@ -203,13 +203,13 @@ int main(void){
 }
 ```
  
-####**Montagem**
+#### **Montagem**
  
 ![][Circuito v2]
  
 Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2].
  
-####**Compilação e upload**
+#### **Compilação e upload**
  
 Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando `make`:
 ```
@@ -225,11 +225,11 @@ Plug in device now... (will timeout in 60 seconds)
 ```
 Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.
  
-####**Resultado**
+#### **Resultado**
  
 Assim como no último exemplo, os leds devem mostrar a contagem de eventos, mostrando em binário até 15.
  
-####**Análise**
+#### **Análise**
  
 Esse exemplo tem um código um pouco mais complexo, podendo fazer diferentes tarefas ao mesmo tempo com o uso de interrupções.
  
@@ -237,13 +237,13 @@ Interrupções são, de forma simples, instruções de alta prioridade, que faze
  
 Porém, apesar do exemplo dois fazer uso de interrupções, ele passa muito tempo nela, o que atrasa o andamento de um possível outro programa que estaria rodando na main. Porém, grande parte do tempo que é gasto na interrupção está atrelado ao debounce, que consiste basicamente de checagens em certos períodos de tempo. Podemos então otimizar o uso do processador saindo da interrupção entre as checagens, uma vez que ele está apenas esperando para fazer o próximo teste. Veremos isso e o modo de economia de energia no contador_v3.
  
-###**Contador_v3**
+### **Contador_v3**
  
 Nesse exemplo vamos otimizar o processamento no código utilizando interrupções para as esperas do debounce, também veremos uma alternativa para diminuir o consumo de energia em momentos em que o processador está esperando algum evento, caso você não precise de outra rotina.
  
 Esse programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca "avr/io.h" e a biblioteca "avr/interrupt.h". Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
  
-####**Código**
+#### **Código**
 ```c
 /**
  * 
@@ -347,13 +347,13 @@ int main(void){
 }
 ```
  
-####**Montagem**
+#### **Montagem**
  
 ![][Circuito v3]
  
 Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2], assim como no exemplo dois.
  
-####**Compilação e upload**
+#### **Compilação e upload**
  
 Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando `make`:
 ```
@@ -369,11 +369,11 @@ Plug in device now... (will timeout in 60 seconds)
 ```
 Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.
  
-####**Resultado**
+#### **Resultado**
  
 Assim como nos exemplos anteriores, os leds do circuito devem mostrar a contagem de pulsos até 15 em binário.
  
-####**Análise**
+#### **Análise**
  
 Neste código adicionamos um pouco mais de complexidade, aumentando o uso de interrupções, além do uso do timer e do modo Sleep. 
  
