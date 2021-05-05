@@ -52,7 +52,7 @@ Para trabalhar com os pinos de I/O no ATtiny85 temos 3 registradores:
 - PINB: Registrador de entrada da porta. Responsável pela leitura do estado do pino.
 
 
-Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontroladr com maior quantidade de pinos teríamos os finas A, B,C, etc. Cada porta só possui no máximo 8 pinos.
+Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontrolador com maior quantidade de pinos teríamos os finas A, B,C, etc. Cada porta só possui no máximo 8 pinos.
 
 Na seção 10 do datasheet do ATtiny85 temos todos os detalhes para se trabalhar com os I/O. A tabela a seguir, retirada do datasheet, exibe as configurações possíveis para os pinos:
 
