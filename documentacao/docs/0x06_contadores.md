@@ -1,11 +1,6 @@
----
-title: Contador de pulsos externos
-summary: Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY
-authors:
-    - Eduardo Dueñas
-date: 05/05/2020
-some_url: [Quem sou eu](https://github.com/EduardoDuenas)
----
+| title | summary | authors | date | some_url |
+|-------|---------|---------|------|----------|
+|Contador de pulsos externos | Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY | Eduardo Dueñas | 05/05/2020 | [Quem sou eu](https://github.com/EduardoDuenas) |
 
 #**Contador de pulsos externos**
  
