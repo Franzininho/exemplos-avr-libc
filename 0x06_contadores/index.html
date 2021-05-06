@@ -178,7 +178,7 @@
 <h2 id="recursos-necessarios"><strong>Recursos necessários</strong></h2>
 <ul>
 <li>Franzininho DIY (com Micronucleos)</li>
-<li>4 leds de 3mm</li>
+<li>4 LEDs de 3mm</li>
 <li>4 resistores de 200Ω</li>
 <li>1 resistor de 10kΩ</li>
 <li>1 chave tactil</li>
@@ -255,7 +255,7 @@ int main(void){
 </code></pre>
 <h4 id="montagem"><strong>Montagem</strong></h4>
 <p><img alt="circuito contador" src="../img/0x06/Exemplo_Contador_Circuito.png" /></p>
-<p>Como mostrado na imagem, os leds são ligados nas saídas PortB[4:1] e o botão no PortB[0].</p>
+<p>Como mostrado na imagem, os LEDs são ligados nas saídas PortB[4:1] e o botão no PortB[0].</p>
 <h4 id="compilacao-e-upload"><strong>Compilação e upload</strong></h4>
 <p>Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando <code>make</code>:</p>
 <pre><code>exemplos-avr-libc/exemplos/contador$ make
@@ -268,7 +268,7 @@ Plug in device now... (will timeout in 60 seconds)
 </code></pre>
 <p>Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.</p>
 <h4 id="resultado"><strong>Resultado</strong></h4>
-<p>Os leds devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.</p>
+<p>Os LEDs devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.</p>
 <h4 id="analise"><strong>Análise</strong></h4>
 <p>Esse código é de simples compreensão usando apenas um <code>for</code> para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se <code>for</code> confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas.</p>
 <p>De forma geral esse código funciona, mas há muito desperdício de processamento, pois há muitos momentos que o processador não está fazendo nada, apenas esperando algo acontecer ou um certo tempo passar, nesse tempo ele poderia estar fazendo outra tarefas ou ficar em modo econômico de energia, que veremos nos próximos exemplos.</p>
@@ -306,7 +306,7 @@ volatile unsigned char count = 0;   //contador
 
 ISR(INT0_vect){
     cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
-    if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
+    if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os LEDs
         count++;            //incrementa o contador
         count %= 0x10;      //limpa o excesso
         PORTB = ((PORTB &amp; 0xE7) | ((count&gt;&gt;2)&lt;&lt;3)); //manda os dois bits mais significativos de cont para PB[4:3]
@@ -350,7 +350,7 @@ int main(void){
 </code></pre>
 <h4 id="montagem_1"><strong>Montagem</strong></h4>
 <p><img alt="Circuito contador V2" src="../img/0x06/Exemplo_Contador_Circuito_v2.png" /></p>
-<p>Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2].</p>
+<p>Como mostrado na imagem, os LEDs são ligados nas saídas PORTB[4:3] e [1:0] e o botão na entrada PORTB[2].</p>
 <h4 id="compilacao-e-upload_1"><strong>Compilação e upload</strong></h4>
 <p>Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando <code>make</code>:</p>
 <pre><code>exemplos-avr-libc/exemplos/contador_v2$ make
@@ -363,7 +363,7 @@ Plug in device now... (will timeout in 60 seconds)
 </code></pre>
 <p>Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.</p>
 <h4 id="resultado_1"><strong>Resultado</strong></h4>
-<p>Assim como no último exemplo, os leds devem mostrar a contagem de eventos, mostrando em binário até 15.</p>
+<p>Assim como no último exemplo, os LEDs devem mostrar a contagem de eventos, mostrando em binário até 15.</p>
 <h4 id="analise_1"><strong>Análise</strong></h4>
 <p>Esse exemplo tem um código um pouco mais complexo, podendo fazer diferentes tarefas ao mesmo tempo com o uso de interrupções.</p>
 <p>Interrupções são, de forma simples, instruções de alta prioridade, que fazem o processador parar o que está fazendo, guardar o estado atual, executar as instruções da interrupção e voltar para o estado anterior, continuando normalmente com o programa. Elas são extremamente úteis para tarefas que precisam de uma precisão de tempo alta ou eventos assíncronos.</p>
@@ -478,7 +478,7 @@ int main(void){
 </code></pre>
 <h4 id="montagem_2"><strong>Montagem</strong></h4>
 <p><img alt="Circuito contador V3" src="../img/0x06/Exemplo_Contador_Circuito_v3.png" /></p>
-<p>Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2], assim como no exemplo dois.</p>
+<p>Como mostrado na imagem, os LEDs são ligados nas saídas PORTB[4:3] e [1:0] e o botão na entrada PORTB[2], assim como no exemplo dois.</p>
 <h4 id="compilacao-e-upload_2"><strong>Compilação e upload</strong></h4>
 <p>Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando <code>make</code>:</p>
 <pre><code>exemplos-avr-libc/exemplos/contador_v3$ make
@@ -491,7 +491,7 @@ Plug in device now... (will timeout in 60 seconds)
 </code></pre>
 <p>Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.</p>
 <h4 id="resultado_2"><strong>Resultado</strong></h4>
-<p>Assim como nos exemplos anteriores, os leds do circuito devem mostrar a contagem de pulsos até 15 em binário.</p>
+<p>Assim como nos exemplos anteriores, os LEDs do circuito devem mostrar a contagem de pulsos até 15 em binário.</p>
 <h4 id="analise_2"><strong>Análise</strong></h4>
 <p>Neste código adicionamos um pouco mais de complexidade, aumentando o uso de interrupções, além do uso do timer e do modo Sleep.</p>
 <p>O modo Sleep é um mode de operação no qual, de forma básica, se desliga alguns módulos do microcontrolador até que alguma interrupção ocorra, o que pode diminuir o consumo de energia de forma drástica. No caso do código do exemplo, utilizamos o modo Idle que no ATtiny85 desliga os CLKs da CPU e FLASH, podendo se desligar opcionalmente o CLK do ADC.</p>
