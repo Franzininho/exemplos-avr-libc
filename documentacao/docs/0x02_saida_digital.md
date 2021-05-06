@@ -11,7 +11,7 @@ some_url:
 
 Agora que já estamos com as ferramentas instaladas e a placa Franzininho DIY em mãos, vamos dar inicio aos estudos dos periféricos internos do ATtiny85.
 
-Nesse artigo vamos explorar os pinos de I/O com saída digital. Ao final, você saberá como acionar dispositivos externos a Franzininho DIY.
+Nesse artigo vamos explorar os pinos de I/O como saída digital. Ao final, você saberá como acionar dispositivos externos a Franzininho DIY.
 
 
 ## Recursos Necessários
@@ -21,7 +21,7 @@ Nesse artigo vamos explorar os pinos de I/O com saída digital. Ao final, você 
 
 ## Pinos do ATtiny85
 
-o ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o numero correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):
+O ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o numero correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):
 
 ![Pinagem do ATtiny85](img/0x02/pinagem-attiny85.png)
 
