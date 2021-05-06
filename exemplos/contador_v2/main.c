@@ -16,7 +16,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
  
-#define F_CPU 16500000L
+#define F_CPU 16500000L     //Frequência de CLK
  
     
 #define setBit(valor,bit) (valor |= (1<<bit))
@@ -24,21 +24,21 @@
 #define toogleBit(valor,bit) (valor ^= (1<<bit))
 #define testBit(valor,bit)    (valor & (1<<bit))
  
-volatile unsigned char count = 0;
+volatile unsigned char count = 0;   //contador
  
 ISR(INT0_vect){
     cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
     if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
-        count++;
-        count %= 0x10;
-        PORTB = ((PORTB & 0xE7) | ((count>>2)<<3));
-        PORTB = ((PORTB & 0xFC) | (count&0x03));
+        count++;            //incrementa o contador
+        count %= 0x10;      //limpa o excesso
+        PORTB = ((PORTB & 0xE7) | ((count>>2)<<3)); //manda os dois bits mais significativos de cont para PB[4:3]
+        PORTB = ((PORTB & 0xFC) | (count&0x03));    //manda os dois bits menos significativos de cont para PB[1:0]
     }
     sei();                  // Reabilita interrupções globais
 }
  
  
-//debounce do push button para desconsiderarmos ruído e bouncing do botão
+//debounce da chave tactil para desconsiderarmos ruído e bouncing do botão
 char debounce(int pino){
     unsigned int i;
     for(i=0;i<20000;i++){           //testa o pino varias vezer para evitar leituras erradas
@@ -52,10 +52,10 @@ char debounce(int pino){
 int main(void){
     //Configuração de PORTB
     clearBit(DDRB,PB2);     //Configura PB2 como entrada
-    setBit(DDRB,PB0);       //Configura PB0 como saida
-    setBit(DDRB,PB1);       //Configura PB1 como saida
-    setBit(DDRB,PB3);       //Configura PB3 como saida
-    setBit(DDRB,PB4);       //Configura PB4 como saida
+    setBit(DDRB,PB0);       //Configura PB0 como saída
+    setBit(DDRB,PB1);       //Configura PB1 como saída
+    setBit(DDRB,PB3);       //Configura PB3 como saída
+    setBit(DDRB,PB4);       //Configura PB4 como saída
  
     PORTB &= 0xE4;          //manda 0 para PB[4:3] e PB[1:0]
  

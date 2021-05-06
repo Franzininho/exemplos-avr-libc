@@ -12,15 +12,15 @@
  
 #include <avr/io.h>
  
-#define F_CPU 16500000L
+#define F_CPU 16500000L     //Frequência de CLK
     
-#define setBit(valor,bit) (valor |= (1<<bit))
-#define clearBit(valor,bit) (valor &= ~(1<<bit))
-#define toogleBit(valor,bit) (valor ^= (1<<bit))
-#define testBit(valor,bit)    (valor & (1<<bit))
+#define setBit(valor,bit)       (valor |= (1<<bit))     
+#define clearBit(valor,bit)     (valor &= ~(1<<bit))    
+#define toogleBit(valor,bit)    (valor ^= (1<<bit))
+#define testBit(valor,bit)      (valor & (1<<bit))
  
  
-//debounce do push button para desconsiderarmos ruído e bouncing do botão
+//debounce da chave táctil para desconsiderarmos ruído e bouncing do botão
 char debounce(int pino){
     unsigned int i;
     for(i=0;i<20000;i++){            //testa o pino várias vezes para evitar leituras erradas
@@ -37,10 +37,10 @@ char debounce(int pino){
 int main(void){
     //Configuração de PORTB
     clearBit(DDRB,PB0);     //Configura PB0 como entrada
-    setBit(DDRB,PB1);       //Configura PB1 como saida
-    setBit(DDRB,PB2);       //Configura PB2 como saida
-    setBit(DDRB,PB3);       //Configura PB3 como saida
-    setBit(DDRB,PB4);       //Configura PB4 como saida
+    setBit(DDRB,PB1);       //Configura PB1 como saída
+    setBit(DDRB,PB2);       //Configura PB2 como saída
+    setBit(DDRB,PB3);       //Configura PB3 como saída
+    setBit(DDRB,PB4);       //Configura PB4 como saída
     
     PORTB &= 0xE1;          //manda 0 para PB[4:1]
     
@@ -55,7 +55,7 @@ int main(void){
                 
             }            
         }
-        count = count % 0x10;                   //limpa o overflow docontador
-        PORTB = ((PORTB & 0xE1) | (count<<1));       //manda o contador para PB[4:1]
+        count = count % 0x10;                   //limpa o overflow do contador
+        PORTB = ((PORTB & 0xE1) | (count<<1));  //manda o contador para PB[4:1]
     }              
 }

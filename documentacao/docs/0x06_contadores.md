@@ -1,7 +1,14 @@
 | title | summary | authors | date | some_url |
 |-------|---------|---------|------|----------|
 |Contador de pulsos externos | Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY | Eduardo Dueñas | 05/05/2020 | [Quem sou eu](https://github.com/EduardoDuenas) |
-
+ 
+Glossário:
+- Setar: colocar um novo valor em um registrador
+- Chave tactil/Push button: botão
+- Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
+- Resetar: reiniciar
+- Timer: circuito eletrônico dedicado a contagem de tempo
+ 
 # **Contador de pulsos externos**
  
 ## **Introdução**    
@@ -11,11 +18,11 @@ Boa prática!
  
 ## **Recursos necessários**
  
-- Franzininho DIY (com Micronúcleos)
+- Franzininho DIY (com Micronucleos)
 - 4 leds de 3mm
 - 4 resistores de 200Ω
-- 1 chave tactil
 - 1 resistor de 10kΩ
+- 1 chave tactil
 - 7 jumpers macho-fêmea
 - 7 jumpers macho-macho
  
@@ -27,7 +34,7 @@ Temos três exemplos de contadores da versão 1 a 3, e aumentando a complexidade
  
 Nesse exemplo vamos utilizar loops para fazer a verificação de eventos. Essa forma de se fazer a contagem, apesar de ser mais simples de se entender e criar, é pouco eficiente, tanto a nível de processamento, quanto ao de energia.
  
-O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca "avr/io.h". Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
+O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca `avr/io.h`. Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
  
 #### **Código**
 ```c
@@ -39,19 +46,21 @@ O programa é um código em linguagem C e faz uso dos nomes dos registradores de
  * @version 1.0
  * @date 06/04/2021
  * 
+ * última modificação: 05/05/2021 
+ * 
  */
  
 #include <avr/io.h>
  
-#define F_CPU 16500000L
+#define F_CPU 16500000L     //Frequência de CLK
     
-#define setBit(valor,bit) (valor |= (1<<bit))
-#define clearBit(valor,bit) (valor &= ~(1<<bit))
-#define toogleBit(valor,bit) (valor ^= (1<<bit))
-#define testBit(valor,bit)    (valor & (1<<bit))
+#define setBit(valor,bit)       (valor |= (1<<bit))     
+#define clearBit(valor,bit)     (valor &= ~(1<<bit))    
+#define toogleBit(valor,bit)    (valor ^= (1<<bit))
+#define testBit(valor,bit)      (valor & (1<<bit))
  
  
-//debounce do push button para desconsiderarmos ruído e bouncing do botão
+//debounce da chave táctil para desconsiderarmos ruído e bouncing do botão
 char debounce(int pino){
     unsigned int i;
     for(i=0;i<20000;i++){            //testa o pino várias vezes para evitar leituras erradas
@@ -79,15 +88,15 @@ int main(void){
  
     for(;;){                   //loop infinito
  
-        if(testBit(PINB,PB0)){                 //testa de PB0 é 1
+        if(testBit(PINB,PB0)){                  //testa de PB0 é 1
             if(debounce(PB0)){                  //verifica se realmente foi um aperto de botão
                 count++;                        //se sim, incrementa o contador
-                while (testBit(PINB,PB0)){}    //espera o botão parar de ser pressionado
+                while (testBit(PINB,PB0)){}     //espera o botão parar de ser pressionado
                 
             }            
         }
-        count = count % 0x10;                   //limpa o overflow docontador
-        PORTB = ((PORTB & 0xE1) | (count<<1));       //manda o contador para PB[4:1]
+        count = count % 0x10;                   //limpa o overflow do contador
+        PORTB = ((PORTB & 0xE1) | (count<<1));  //manda o contador para PB[4:1]
     }              
 }
 ```
@@ -120,7 +129,7 @@ Os leds devem mostrar a contagem de apertos do botão de forma binária resetand
  
 #### **Análise**
  
-Esse código é de simples compreensão usando apenas um for para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se for confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas. 
+Esse código é de simples compreensão usando apenas um `for` para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se `for` confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas. 
  
 De forma geral esse código funciona, mas há muito desperdício de processamento, pois há muitos momentos que o processador não está fazendo nada, apenas esperando algo acontecer ou um certo tempo passar, nesse tempo ele poderia estar fazendo outra tarefas ou ficar em modo econômico de energia, que veremos nos próximos exemplos.
  
@@ -128,7 +137,7 @@ De forma geral esse código funciona, mas há muito desperdício de processament
  
 Nesse exemplo vamos começar a usar interrupções para ler os pulsos. Vamos ver quais são as vantagens desse método e o que pode ser melhorado.
  
-O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca "avr/io.h" e a biblioteca "avr/interrupt.h". Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
+O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca `avr/io.h` e a biblioteca `avr/interrupt.h`. Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
  
 #### **Código**
 ```c
@@ -140,6 +149,8 @@ O programa é um código em linguagem C e faz uso dos nomes dos registradores de
  * @version 1.0
  * @date 19/04/2021
  * 
+ * última modificação: 05/05/2021 
+ * 
  * O programa é um desenvolvimento em cima do contador uma com alterações na leitura do pulso para leitura por interrupção,
  * possibilitando o uso do microcontrolador para outras funções junto do contador 
  * 
@@ -148,7 +159,7 @@ O programa é um código em linguagem C e faz uso dos nomes dos registradores de
 #include <avr/io.h>
 #include <avr/interrupt.h>
  
-#define F_CPU 16500000L
+#define F_CPU 16500000L     //Frequência de CLK
  
     
 #define setBit(valor,bit) (valor |= (1<<bit))
@@ -156,25 +167,25 @@ O programa é um código em linguagem C e faz uso dos nomes dos registradores de
 #define toogleBit(valor,bit) (valor ^= (1<<bit))
 #define testBit(valor,bit)    (valor & (1<<bit))
  
-volatile unsigned char count = 0;
+volatile unsigned char count = 0;   //contador
  
 ISR(INT0_vect){
     cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
     if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
-        count++;
-        count %= 0x10;
-        PORTB = ((PORTB & 0xE7) | ((count>>2)<<3));
-        PORTB = ((PORTB & 0xFC) | (count&0x03));
+        count++;            //incrementa o contador
+        count %= 0x10;      //limpa o excesso
+        PORTB = ((PORTB & 0xE7) | ((count>>2)<<3)); //manda os dois bits mais significativos de cont para PB[4:3]
+        PORTB = ((PORTB & 0xFC) | (count&0x03));    //manda os dois bits menos significativos de cont para PB[1:0]
     }
     sei();                  // Reabilita interrupções globais
 }
  
  
-//debounce do push button para desconsiderarmos ruído e bouncing do botão
+//debounce da chave tactil para desconsiderarmos ruído e bouncing do botão
 char debounce(int pino){
     unsigned int i;
-    for(i=0;i<20000;i++){              //testa o pino varias vezer para evitar leituras erradas
-        if(!(testBit(PINB,pino))){   //testa se o pino deixou de ser 1
+    for(i=0;i<20000;i++){           //testa o pino várias vezes para evitar leituras erradas
+        if(!(testBit(PINB,pino))){  //testa se o pino deixou de ser 1
             return 0;           //se sim, retorna falso
         }
     }
@@ -184,10 +195,10 @@ char debounce(int pino){
 int main(void){
     //Configuração de PORTB
     clearBit(DDRB,PB2);     //Configura PB2 como entrada
-    setBit(DDRB,PB0);       //Configura PB0 como saida
-    setBit(DDRB,PB1);       //Configura PB1 como saida
-    setBit(DDRB,PB3);       //Configura PB3 como saida
-    setBit(DDRB,PB4);       //Configura PB4 como saida
+    setBit(DDRB,PB0);       //Configura PB0 como saída
+    setBit(DDRB,PB1);       //Configura PB1 como saída
+    setBit(DDRB,PB3);       //Configura PB3 como saída
+    setBit(DDRB,PB4);       //Configura PB4 como saída
  
     PORTB &= 0xE4;          //manda 0 para PB[4:3] e PB[1:0]
  
@@ -215,7 +226,7 @@ Para compilar o programa, assim como nos programas anteriores, acesse a pasta do
 ```
 exemplos-avr-libc/exemplos/contador_v2$ make
 ```
-Como ja temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:
+Como já temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:
  
 ```
 ../../micronucleus/2.0a4/launcher  -cdigispark --timeout 60 -Uflash:w:main.hex:i
@@ -233,15 +244,15 @@ Assim como no último exemplo, os leds devem mostrar a contagem de eventos, most
  
 Esse exemplo tem um código um pouco mais complexo, podendo fazer diferentes tarefas ao mesmo tempo com o uso de interrupções.
  
-Interrupções são, de forma simples, instruções de alta prioridade, que fazem o processador parar o que está fazendo, guardar o estado atual, executar as instruções da interrupção e voltar para o estado anterior, continuando normalmente com o programa. Elas são extremamente uteis para tarefas que precisam de uma precisão de tempo alta ou eventos assíncronos.
+Interrupções são, de forma simples, instruções de alta prioridade, que fazem o processador parar o que está fazendo, guardar o estado atual, executar as instruções da interrupção e voltar para o estado anterior, continuando normalmente com o programa. Elas são extremamente úteis para tarefas que precisam de uma precisão de tempo alta ou eventos assíncronos.
  
-Porém, apesar do exemplo dois fazer uso de interrupções, ele passa muito tempo nela, o que atrasa o andamento de um possível outro programa que estaria rodando na main. Porém, grande parte do tempo que é gasto na interrupção está atrelado ao debounce, que consiste basicamente de checagens em certos períodos de tempo. Podemos então otimizar o uso do processador saindo da interrupção entre as checagens, uma vez que ele está apenas esperando para fazer o próximo teste. Veremos isso e o modo de economia de energia no contador_v3.
+Porém, apesar do exemplo dois fazer uso de interrupções, ele passa muito tempo nela, o que atrasa o andamento de um possível outro programa que estaria rodando na `main`. Porém, grande parte do tempo que é gasto na interrupção está atrelado ao debounce, que consiste basicamente de checagens em certos períodos de tempo. Podemos então otimizar o uso do processador saindo da interrupção entre as checagens, uma vez que ele está apenas esperando para fazer o próximo teste. Veremos isso e o modo de economia de energia no contador_v3.
  
 ### **Contador_v3**
  
 Nesse exemplo vamos otimizar o processamento no código utilizando interrupções para as esperas do debounce, também veremos uma alternativa para diminuir o consumo de energia em momentos em que o processador está esperando algum evento, caso você não precise de outra rotina.
  
-Esse programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca "avr/io.h" e a biblioteca "avr/interrupt.h". Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
+Esse programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca `avr/io.h` e a biblioteca `avr/interrupt.h`. Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.
  
 #### **Código**
 ```c
@@ -252,6 +263,8 @@ Esse programa é um código em linguagem C e faz uso dos nomes dos registradores
  * @brief Exemplo de contador de eventos com tratamento por interrupção
  * @version 1.0
  * @date 20/04/2021
+ * 
+ * última modificação: 05/05/2021 
  * 
  * O programa é um desenvolvimento em cima do contador_v2 uma com alterações no loop infinito que 
  * havia ficado em aberto para outras aplicações para o modo sleep para diminuir o gasto de energia e
@@ -264,7 +277,7 @@ Esse programa é um código em linguagem C e faz uso dos nomes dos registradores
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
  
-#define F_CPU 16500000L
+#define F_CPU 16500000L     //Frequência de CLK
  
     
 #define setBit(valor,bit) (valor |= (1<<bit))
@@ -272,18 +285,18 @@ Esse programa é um código em linguagem C e faz uso dos nomes dos registradores
 #define toogleBit(valor,bit) (valor ^= (1<<bit))
 #define testBit(valor,bit)    (valor & (1<<bit))
  
-volatile unsigned char count = 0;
-volatile unsigned char test = 0;
-unsigned int pin = 0;
+volatile unsigned char count = 0;   //contador
+volatile unsigned char test = 0;    //quantidade de testes do debounce
+unsigned int pin = 0;               //pino do debounce
  
  
-//Debounce do push button para desconsiderarmos ruido e bouncing do botão
+//Debounce da chave tactil para desconsiderarmos ruido e bouncing do botão
 char debounce(int pino){
     pin=pino;
-    //Coloca um timer para cada 1000 ciclos de clk para testar o push buttom
-    TCNT0=131;                  //256-(1000/8)=131
+    //Coloca um timer para cada 1000 ciclos de clk para testar a chave tactil
+    TCNT0=131;                  //overflow-(ciclos/Prescaler)=256-(1000/8)=131
     setBit(TIMSK,TOIE0);        //Habilita interrupções por timer overflow
-    test=0;
+    test=0;                     //limpa test
 }
  
  
@@ -294,13 +307,14 @@ ISR(INT0_vect){             //Tratamento de interrupções de pulso externo
  
  
 ISR(TIMER0_OVF_vect){       //Tratamento de interrupções de timer overflow
-    if(testBit(PINB,pin)){
-        test++;
-        if(test>=20){
-            count++;
-            count %= 0x10;
-            PORTB = ((PORTB & 0xE7) | ((count>>2)<<3));
-            PORTB = ((PORTB & 0xFC) | (count&0x03));
+    TCNT0=131;                  //seta denovo o timer para 131
+    if(testBit(PINB,pin)){      //se o botão continua apertado
+        test++;             //incrementa test
+        if(test>=20){       //se testou o suficiente (no caso 20 vezes)
+            count++;            //incrementa o contador
+            count %= 0x10;      //limpa o excesso
+            PORTB = ((PORTB & 0xE7) | ((count>>2)<<3)); //manda os dois bits mais significativos de cont para PB[4:3]
+            PORTB = ((PORTB & 0xFC) | (count&0x03));    //manda os dois bits menos significativos de cont para PB[1:0]
             clearBit(TIMSK,TOIE0);  //Desabilita interrupções por timer overflow
             setBit(GIMSK,INT0);     //Reabilita interrupções externas no INT0
         }
@@ -359,7 +373,7 @@ Para compilar o programa, assim como nos programas anteriores, acesse a pasta do
 ```
 exemplos-avr-libc/exemplos/contador_v3$ make
 ```
-Como ja temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:
+Como já temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:
  
 ```
 ../../micronucleus/2.0a4/launcher  -cdigispark --timeout 60 -Uflash:w:main.hex:i
@@ -379,7 +393,13 @@ Neste código adicionamos um pouco mais de complexidade, aumentando o uso de int
  
 O modo Sleep é um mode de operação no qual, de forma básica, se desliga alguns módulos do microcontrolador até que alguma interrupção ocorra, o que pode diminuir o consumo de energia de forma drástica. No caso do código do exemplo, utilizamos o modo Idle que no ATtiny85 desliga os CLKs da CPU e FLASH, podendo se desligar opcionalmente o CLK do ADC.
  
+O timer nesse exemplo está configurado como em modo normal, com prescaler de 8, o que faz ele incrementar o timer uma vez a cada 8 ciclos de CLK. A forma adotada para a contagem do tempo foi a interrupção por timer overflow, ou seja, sempre que o valor máximo do timer for atingido ele gera uma interrupção. Para conseguirmos os 1000 ciclos que queremos calculamos `overflow -(ciclos/Prescaler)`, que nos dá `256 -(1000/8) = 131`, e setamos o valor do timer nesse valor para que falte o tempo que desejamos para a interrupção.
+ 
 O uso de interrupções do timer para o debounce diminui consideravelmente o tempo que o processador consome em execução do tratamento do evento, o que melhora o processamento das rotinas paralelas, ou no caso, permite que o processador fique mais tempo no modo Sleep, diminuindo o consumo de energia ou em caso de alimentação por baterias, aumenta a vida útil da da fonte.
+ 
+## **Conclusão**
+ 
+De forma geral, todas as três formas de se fazer o código funcionam, e ao servirem seu propósito não estão erradas. Porém, como programadores, principalmente de sistemas embarcados, é uma ótima prática conseguirmos fazer um código eficiente, de forma a não se tornar um empecilho no futuro, seja por usarmos muita memória ou deixarmos o processador muito lento e termos que refazer algo pronto do zero. Por isso é importante saber quais são as vantagens e desvantagens de cada método para podermos sempre utilizar o que melhor se adequa às nossas necessidades. 
  
  
  
@@ -389,5 +409,3 @@ O uso de interrupções do timer para o debounce diminui consideravelmente o tem
 [Circuito v2]: https://github.com/Franzininho/exemplos-avr-libc/blob/main/exemplos/contador_v2/Exemplo_Contador_Circuito_v2.png "Circuito do contador_v2"
  
 [Circuito v3]: https://github.com/Franzininho/exemplos-avr-libc/blob/main/exemplos/contador_v3/Exemplo_Contador_Circuito_v3.png "Circuito do contador_v3"
- 
-
