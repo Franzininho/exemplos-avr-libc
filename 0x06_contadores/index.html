@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  
+  <title>Contador de pulsos externos - Exemplos AVR LIBC</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Contador de pulsos externos";
+    var mkdocs_page_input_path = "0x06_contadores.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Exemplos AVR LIBC</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Primeiros passos</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x01_hello/">Hello, World!</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x02_saida_digital/">Saída Digital</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x03_entrada_digital/">Entrada digital</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x04_timer0/">Timer0</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../0x05_timer0_int/">Timer0 interrupção</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Exemplos AVR LIBC</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Contador de pulsos externos</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/Franzininho/exemplos-avr-libc/edit/master/docs/0x06_contadores.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>Glossário:
+- Setar: colocar um novo valor em um registrador
+- Chave tactil/Push button: botão
+- Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
+- Resetar: reiniciar
+- Timer: circuito eletrônico dedicado a contagem de tempo</p>
+<h1 id="contador-de-pulsos-externos"><strong>Contador de pulsos externos</strong></h1>
+<h2 id="introducao"><strong>Introdução</strong></h2>
+<p>Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY. Vamos explorar as formas mais simples e as mais complexas de contar eventos e as vantagens de cada uma. Nesses exemplos vamos aprender a usar o timer e a fazer debounce, necessário para lermos apenas eventos válidos e não ler o mesmo evento mais de uma vez.</p>
+<p>Boa prática!</p>
+<h2 id="recursos-necessarios"><strong>Recursos necessários</strong></h2>
+<ul>
+<li>Franzininho DIY (com Micronucleos)</li>
+<li>4 leds de 3mm</li>
+<li>4 resistores de 200Ω</li>
+<li>1 resistor de 10kΩ</li>
+<li>1 chave tactil</li>
+<li>7 jumpers macho-fêmea</li>
+<li>7 jumpers macho-macho</li>
+</ul>
+<h2 id="contadores"><strong>Contadores</strong></h2>
+<p>Temos três exemplos de contadores da versão 1 a 3, e aumentando a complexidade do código e dos recursos utilizados.</p>
+<h3 id="contador_v1"><strong>Contador_v1</strong></h3>
+<p>Nesse exemplo vamos utilizar loops para fazer a verificação de eventos. Essa forma de se fazer a contagem, apesar de ser mais simples de se entender e criar, é pouco eficiente, tanto a nível de processamento, quanto ao de energia.</p>
+<p>O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca <code>avr/io.h</code>. Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.</p>
+<h4 id="codigo"><strong>Código</strong></h4>
+<pre><code class="language-c">/**
+ *
+ * @file main.c
+ * @author Eduardo Dueñas
+ * @brief Exemplo de contador de eventos
+ * @version 1.0
+ * @date 06/04/2021
+ *
+ * última modificação: 05/05/2021
+ *
+ */
+
+#include &lt;avr/io.h&gt;
+
+#define F_CPU 16500000L     //Frequência de CLK
+
+#define setBit(valor,bit)       (valor |= (1&lt;&lt;bit))     
+#define clearBit(valor,bit)     (valor &amp;= ~(1&lt;&lt;bit))    
+#define toogleBit(valor,bit)    (valor ^= (1&lt;&lt;bit))
+#define testBit(valor,bit)      (valor &amp; (1&lt;&lt;bit))
+
+
+//debounce da chave táctil para desconsiderarmos ruído e bouncing do botão
+char debounce(int pino){
+    unsigned int i;
+    for(i=0;i&lt;20000;i++){            //testa o pino várias vezes para evitar leituras erradas
+        if(!(testBit(PINB,pino))){   //testa se o pino deixou de ser 1
+            return 0;           //se sim, retorna falso
+        }
+    }
+    return 1;                    //retorna verdadeiro
+}
+
+
+
+
+int main(void){
+    //Configuração de PORTB
+    clearBit(DDRB,PB0);     //Configura PB0 como entrada
+    setBit(DDRB,PB1);       //Configura PB1 como saida
+    setBit(DDRB,PB2);       //Configura PB2 como saida
+    setBit(DDRB,PB3);       //Configura PB3 como saida
+    setBit(DDRB,PB4);       //Configura PB4 como saida
+
+    PORTB &amp;= 0xE1;          //manda 0 para PB[4:1]
+
+    unsigned char count = 0;
+
+    for(;;){                   //loop infinito
+
+        if(testBit(PINB,PB0)){                  //testa de PB0 é 1
+            if(debounce(PB0)){                  //verifica se realmente foi um aperto de botão
+                count++;                        //se sim, incrementa o contador
+                while (testBit(PINB,PB0)){}     //espera o botão parar de ser pressionado
+
+            }            
+        }
+        count = count % 0x10;                   //limpa o overflow do contador
+        PORTB = ((PORTB &amp; 0xE1) | (count&lt;&lt;1));  //manda o contador para PB[4:1]
+    }              
+}
+</code></pre>
+<h4 id="montagem"><strong>Montagem</strong></h4>
+<p><img alt="circuito contador" src="../img/0x06/Exemplo_Contador_Circuito.png" /></p>
+<p>Como mostrado na imagem, os leds são ligados nas saídas PortB[4:1] e o botão no PortB[0].</p>
+<h4 id="compilacao-e-upload"><strong>Compilação e upload</strong></h4>
+<p>Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando <code>make</code>:</p>
+<pre><code>exemplos-avr-libc/exemplos/contador$ make
+</code></pre>
+<p>Como já temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:</p>
+<pre><code>../../micronucleus/2.0a4/launcher  -cdigispark --timeout 60 -Uflash:w:main.hex:i
+Running Digispark Uploader...
+Plug in device now... (will timeout in 60 seconds)
+&gt; Please plug in the device (will time out in 60 seconds) ...
+</code></pre>
+<p>Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.</p>
+<h4 id="resultado"><strong>Resultado</strong></h4>
+<p>Os leds devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.</p>
+<h4 id="analise"><strong>Análise</strong></h4>
+<p>Esse código é de simples compreensão usando apenas um <code>for</code> para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se <code>for</code> confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas.</p>
+<p>De forma geral esse código funciona, mas há muito desperdício de processamento, pois há muitos momentos que o processador não está fazendo nada, apenas esperando algo acontecer ou um certo tempo passar, nesse tempo ele poderia estar fazendo outra tarefas ou ficar em modo econômico de energia, que veremos nos próximos exemplos.</p>
+<h3 id="contador_v2"><strong>Contador_v2</strong></h3>
+<p>Nesse exemplo vamos começar a usar interrupções para ler os pulsos. Vamos ver quais são as vantagens desse método e o que pode ser melhorado.</p>
+<p>O programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca <code>avr/io.h</code> e a biblioteca <code>avr/interrupt.h</code>. Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.</p>
+<h4 id="codigo_1"><strong>Código</strong></h4>
+<pre><code class="language-c">/**
+ *
+ * @file main.c
+ * @author Eduardo Dueñas
+ * @brief Exemplo de contador de eventos com tratamento por interrupção
+ * @version 1.0
+ * @date 19/04/2021
+ *
+ * última modificação: 05/05/2021
+ *
+ * O programa é um desenvolvimento em cima do contador uma com alterações na leitura do pulso para leitura por interrupção,
+ * possibilitando o uso do microcontrolador para outras funções junto do contador
+ *
+ */
+
+#include &lt;avr/io.h&gt;
+#include &lt;avr/interrupt.h&gt;
+
+#define F_CPU 16500000L     //Frequência de CLK
+
+
+#define setBit(valor,bit) (valor |= (1&lt;&lt;bit))
+#define clearBit(valor,bit) (valor &amp;= ~(1&lt;&lt;bit))
+#define toogleBit(valor,bit) (valor ^= (1&lt;&lt;bit))
+#define testBit(valor,bit)    (valor &amp; (1&lt;&lt;bit))
+
+volatile unsigned char count = 0;   //contador
+
+ISR(INT0_vect){
+    cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
+    if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
+        count++;            //incrementa o contador
+        count %= 0x10;      //limpa o excesso
+        PORTB = ((PORTB &amp; 0xE7) | ((count&gt;&gt;2)&lt;&lt;3)); //manda os dois bits mais significativos de cont para PB[4:3]
+        PORTB = ((PORTB &amp; 0xFC) | (count&amp;0x03));    //manda os dois bits menos significativos de cont para PB[1:0]
+    }
+    sei();                  // Reabilita interrupções globais
+}
+
+
+//debounce da chave tactil para desconsiderarmos ruído e bouncing do botão
+char debounce(int pino){
+    unsigned int i;
+    for(i=0;i&lt;20000;i++){           //testa o pino várias vezes para evitar leituras erradas
+        if(!(testBit(PINB,pino))){  //testa se o pino deixou de ser 1
+            return 0;           //se sim, retorna falso
+        }
+    }
+    return 1;                    //retorna verdadeiro
+}
+
+int main(void){
+    //Configuração de PORTB
+    clearBit(DDRB,PB2);     //Configura PB2 como entrada
+    setBit(DDRB,PB0);       //Configura PB0 como saída
+    setBit(DDRB,PB1);       //Configura PB1 como saída
+    setBit(DDRB,PB3);       //Configura PB3 como saída
+    setBit(DDRB,PB4);       //Configura PB4 como saída
+
+    PORTB &amp;= 0xE4;          //manda 0 para PB[4:3] e PB[1:0]
+
+    //Configuração de Interrupção externa
+    GIMSK |= (1&lt;&lt;INT0);     //Habilita interrupções externas no INT0
+    MCUCR |= 0x03;          //Seta interrupções para borda de subida
+    sei();                  //Habilita interrupções globais
+
+
+    for(;;){                   //loop infinito
+        //aqui você pode colocar outra aplicação para rodar simultaneamente ao contador
+    }              
+}
+</code></pre>
+<h4 id="montagem_1"><strong>Montagem</strong></h4>
+<p><img alt="Circuito contador V2" src="../img/0x06/Exemplo_Contador_Circuito_v2.png" /></p>
+<p>Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2].</p>
+<h4 id="compilacao-e-upload_1"><strong>Compilação e upload</strong></h4>
+<p>Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando <code>make</code>:</p>
+<pre><code>exemplos-avr-libc/exemplos/contador_v2$ make
+</code></pre>
+<p>Como já temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:</p>
+<pre><code>../../micronucleus/2.0a4/launcher  -cdigispark --timeout 60 -Uflash:w:main.hex:i
+Running Digispark Uploader...
+Plug in device now... (will timeout in 60 seconds)
+&gt; Please plug in the device (will time out in 60 seconds) ...
+</code></pre>
+<p>Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.</p>
+<h4 id="resultado_1"><strong>Resultado</strong></h4>
+<p>Assim como no último exemplo, os leds devem mostrar a contagem de eventos, mostrando em binário até 15.</p>
+<h4 id="analise_1"><strong>Análise</strong></h4>
+<p>Esse exemplo tem um código um pouco mais complexo, podendo fazer diferentes tarefas ao mesmo tempo com o uso de interrupções.</p>
+<p>Interrupções são, de forma simples, instruções de alta prioridade, que fazem o processador parar o que está fazendo, guardar o estado atual, executar as instruções da interrupção e voltar para o estado anterior, continuando normalmente com o programa. Elas são extremamente úteis para tarefas que precisam de uma precisão de tempo alta ou eventos assíncronos.</p>
+<p>Porém, apesar do exemplo dois fazer uso de interrupções, ele passa muito tempo nela, o que atrasa o andamento de um possível outro programa que estaria rodando na <code>main</code>. Porém, grande parte do tempo que é gasto na interrupção está atrelado ao debounce, que consiste basicamente de checagens em certos períodos de tempo. Podemos então otimizar o uso do processador saindo da interrupção entre as checagens, uma vez que ele está apenas esperando para fazer o próximo teste. Veremos isso e o modo de economia de energia no contador_v3.</p>
+<h3 id="contador_v3"><strong>Contador_v3</strong></h3>
+<p>Nesse exemplo vamos otimizar o processamento no código utilizando interrupções para as esperas do debounce, também veremos uma alternativa para diminuir o consumo de energia em momentos em que o processador está esperando algum evento, caso você não precise de outra rotina.</p>
+<p>Esse programa é um código em linguagem C e faz uso dos nomes dos registradores definidos na biblioteca <code>avr/io.h</code> e a biblioteca <code>avr/interrupt.h</code>. Para melhor entendimento recomendo ler os comentários do código e o datasheet do ATtiny85.</p>
+<h4 id="codigo_2"><strong>Código</strong></h4>
+<pre><code class="language-c">/**
+ *
+ * @file main.c
+ * @author Eduardo Dueñas
+ * @brief Exemplo de contador de eventos com tratamento por interrupção
+ * @version 1.0
+ * @date 20/04/2021
+ *
+ * última modificação: 05/05/2021
+ *
+ * O programa é um desenvolvimento em cima do contador_v2 uma com alterações no loop infinito que
+ * havia ficado em aberto para outras aplicações para o modo sleep para diminuir o gasto de energia e
+ * alterar o debounce para interrupção, aumentando a eficiência do código. O código pode ser usado com
+ * outras aplicações no lugar do sleep.
+ *
+ */
+
+#include &lt;avr/io.h&gt;
+#include &lt;avr/interrupt.h&gt;
+#include &lt;avr/sleep.h&gt;
+
+#define F_CPU 16500000L     //Frequência de CLK
+
+
+#define setBit(valor,bit) (valor |= (1&lt;&lt;bit))
+#define clearBit(valor,bit) (valor &amp;= ~(1&lt;&lt;bit))
+#define toogleBit(valor,bit) (valor ^= (1&lt;&lt;bit))
+#define testBit(valor,bit)    (valor &amp; (1&lt;&lt;bit))
+
+volatile unsigned char count = 0;   //contador
+volatile unsigned char test = 0;    //quantidade de testes do debounce
+unsigned int pin = 0;               //pino do debounce
+
+
+//Debounce da chave tactil para desconsiderarmos ruido e bouncing do botão
+char debounce(int pino){
+    pin=pino;
+    //Coloca um timer para cada 1000 ciclos de clk para testar a chave tactil
+    TCNT0=131;                  //overflow-(ciclos/Prescaler)=256-(1000/8)=131
+    setBit(TIMSK,TOIE0);        //Habilita interrupções por timer overflow
+    test=0;                     //limpa test
+}
+
+
+ISR(INT0_vect){             //Tratamento de interrupções de pulso externo
+    clearBit(GIMSK,INT0);    //Desabilita interrupções do INT0 durante o tratamento da interrupção
+    debounce(PB2);
+}
+
+
+ISR(TIMER0_OVF_vect){       //Tratamento de interrupções de timer overflow
+    TCNT0=131;                  //seta denovo o timer para 131
+    if(testBit(PINB,pin)){      //se o botão continua apertado
+        test++;             //incrementa test
+        if(test&gt;=20){       //se testou o suficiente (no caso 20 vezes)
+            count++;            //incrementa o contador
+            count %= 0x10;      //limpa o excesso
+            PORTB = ((PORTB &amp; 0xE7) | ((count&gt;&gt;2)&lt;&lt;3)); //manda os dois bits mais significativos de cont para PB[4:3]
+            PORTB = ((PORTB &amp; 0xFC) | (count&amp;0x03));    //manda os dois bits menos significativos de cont para PB[1:0]
+            clearBit(TIMSK,TOIE0);  //Desabilita interrupções por timer overflow
+            setBit(GIMSK,INT0);     //Reabilita interrupções externas no INT0
+        }
+    }
+    else{
+        clearBit(TIMSK,TOIE0);  //Desabilita interrupções por timer overflow
+        setBit(GIMSK,INT0);     //Reabilita interrupções externas no INT0
+    }
+
+}
+
+
+
+int main(void){
+    //Configuração de PORTB
+    clearBit(DDRB,PB2);     //Configura PB2 como entrada
+    setBit(DDRB,PB0);       //Configura PB0 como saida
+    setBit(DDRB,PB1);       //Configura PB1 como saida
+    setBit(DDRB,PB3);       //Configura PB3 como saida
+    setBit(DDRB,PB4);       //Configura PB4 como saida
+
+    PORTB &amp;= 0xE4;          //Manda 0 para PB[4:3] e PB[1:0]
+
+    //Configuração do timer
+    TCCR0A=0x00;                //Modo Normal
+    TCCR0B=0x00;
+    TCCR0B |= 0x02;             //Prescaler de 8
+
+
+    //Configuração do modo sleep
+    clearBit(MCUCR,SM0);        //Configura sleep mode como idle
+    clearBit(MCUCR,SM1);
+
+    //Configuração de Interrupção externa
+    setBit(GIMSK,INT0);     //Habilita interrupções externas no INT0
+    MCUCR |= 0x03;          //Seta interrupções para borda de subida
+    sei();                  //Habilita interrupções globais
+
+
+    for(;;){                   //Loop infinito
+        //Aqui você pode colocar outra aplicação para rodar simultaneamente ao contador no lugar do sleep
+        sleep_mode();   //entra no sleep mode
+    }              
+}
+</code></pre>
+<h4 id="montagem_2"><strong>Montagem</strong></h4>
+<p><img alt="Circuito contador V3" src="../img/0x06/Exemplo_Contador_Circuito_v3.png" /></p>
+<p>Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2], assim como no exemplo dois.</p>
+<h4 id="compilacao-e-upload_2"><strong>Compilação e upload</strong></h4>
+<p>Para compilar o programa, assim como nos programas anteriores, acesse a pasta do exemplo e em seguida o comando <code>make</code>:</p>
+<pre><code>exemplos-avr-libc/exemplos/contador_v3$ make
+</code></pre>
+<p>Como já temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:</p>
+<pre><code>../../micronucleus/2.0a4/launcher  -cdigispark --timeout 60 -Uflash:w:main.hex:i
+Running Digispark Uploader...
+Plug in device now... (will timeout in 60 seconds)
+&gt; Please plug in the device (will time out in 60 seconds) ...
+</code></pre>
+<p>Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.</p>
+<h4 id="resultado_2"><strong>Resultado</strong></h4>
+<p>Assim como nos exemplos anteriores, os leds do circuito devem mostrar a contagem de pulsos até 15 em binário.</p>
+<h4 id="analise_2"><strong>Análise</strong></h4>
+<p>Neste código adicionamos um pouco mais de complexidade, aumentando o uso de interrupções, além do uso do timer e do modo Sleep.</p>
+<p>O modo Sleep é um mode de operação no qual, de forma básica, se desliga alguns módulos do microcontrolador até que alguma interrupção ocorra, o que pode diminuir o consumo de energia de forma drástica. No caso do código do exemplo, utilizamos o modo Idle que no ATtiny85 desliga os CLKs da CPU e FLASH, podendo se desligar opcionalmente o CLK do ADC.</p>
+<p>O timer nesse exemplo está configurado como em modo normal, com prescaler de 8, o que faz ele incrementar o timer uma vez a cada 8 ciclos de CLK. A forma adotada para a contagem do tempo foi a interrupção por timer overflow, ou seja, sempre que o valor máximo do timer for atingido ele gera uma interrupção. Para conseguirmos os 1000 ciclos que queremos calculamos <code>overflow -(ciclos/Prescaler)</code>, que nos dá <code>256 -(1000/8) = 131</code>, e setamos o valor do timer nesse valor para que falte o tempo que desejamos para a interrupção.</p>
+<p>O uso de interrupções do timer para o debounce diminui consideravelmente o tempo que o processador consome em execução do tratamento do evento, o que melhora o processamento das rotinas paralelas, ou no caso, permite que o processador fique mais tempo no modo Sleep, diminuindo o consumo de energia ou em caso de alimentação por baterias, aumenta a vida útil da da fonte.</p>
+<h2 id="conclusao"><strong>Conclusão</strong></h2>
+<p>De forma geral, todas as três formas de se fazer o código funcionam, e ao servirem seu propósito não estão erradas. Porém, como programadores, principalmente de sistemas embarcados, é uma ótima prática conseguirmos fazer um código eficiente, de forma a não se tornar um empecilho no futuro, seja por usarmos muita memória ou deixarmos o processador muito lento e termos que refazer algo pronto do zero. Por isso é importante saber quais são as vantagens e desvantagens de cada método para podermos sempre utilizar o que melhor se adequa às nossas necessidades.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/Franzininho/exemplos-avr-libc/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

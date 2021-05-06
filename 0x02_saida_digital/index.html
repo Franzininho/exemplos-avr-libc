@@ -111,14 +111,14 @@
               
                 <h2 id="introducao">Introdução</h2>
 <p>Agora que já estamos com as ferramentas instaladas e a placa Franzininho DIY em mãos, vamos dar inicio aos estudos dos periféricos internos do ATtiny85.</p>
-<p>Nesse artigo vamos explorar os pinos de I/O com saída digital. Ao final, você saberá como acionar dispositivos externos a Franzininho DIY.</p>
+<p>Nesse artigo vamos explorar os pinos de I/O como saída digital. Ao final, você saberá como acionar dispositivos externos a Franzininho DIY.</p>
 <h2 id="recursos-necessarios">Recursos Necessários</h2>
 <ul>
 <li>Placa Franzininho DIY(com Micronucleus)</li>
 <li>Computador com as ferramentas de software instaladas(link)</li>
 </ul>
 <h2 id="pinos-do-attiny85">Pinos do ATtiny85</h2>
-<p>o ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o numero correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):</p>
+<p>O ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o numero correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):</p>
 <p><img alt="Pinagem do ATtiny85" src="../img/0x02/pinagem-attiny85.png" /></p>
 <p>Cada pino de I/O pode ser usado como entrada ou saída e também como outras funções nesse momento só vamos trabalhar com os pinos funcionando como GPIO (General Porpouse Input/Output).</p>
 <p>Conforme exibido na imagem acima, temos os seguintes pinos disponíveis no ATtiny85:</p>
@@ -137,7 +137,7 @@
 - PORTB: Registrador de dados. Responsável pela escrita no pinos;
 - DDRB: Registrador de direção do pino. Responsável pela configuração do pinos para definir se será entrada ou saída;
 - PINB: Registrador de entrada da porta. Responsável pela leitura do estado do pino.</p>
-<p>Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontroladr com maior quantidade de pinos teríamos os finas A, B,C, etc. Cada porta só possui no máximo 8 pinos.</p>
+<p>Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontrolador com maior quantidade de pinos teríamos os finas A, B,C, etc. Cada porta só possui no máximo 8 pinos.</p>
 <p>Na seção 10 do datasheet do ATtiny85 temos todos os detalhes para se trabalhar com os I/O. A tabela a seguir, retirada do datasheet, exibe as configurações possíveis para os pinos:</p>
 <p><img alt="configuração GPIO" src="../img/0x02/config-gpio.png" /></p>
 <p>A figura abaixo exibe os registradores responsáveis pelos pino de I/O do PORTB:</p>

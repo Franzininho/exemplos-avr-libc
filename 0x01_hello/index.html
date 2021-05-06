@@ -127,8 +127,8 @@
               
                 <h1 id="hello-world">Hello, World!</h1>
 <h2 id="introducao">Introdução</h2>
-<p>Nesse exemplo vamos dar os nossos primeiros passos na programação da Franzininho DIY usando a AVR LIBC.
-Como de costume o nosso "Hello, World!" na eletrônica será um blink LED. Ao final desse experimento você terá uma estrutura mínima para desenvolver aplicações para o ATtiny85 em C.</p>
+<p>Nesse exemplo vamos dar os nossos primeiros passos na programação da Franzininho DIY usando a <a href="https://nongnu.org/avr-libc/">AVR Libc</a>.</p>
+<p>Como de costume o nosso "Hello, World!" na eletrônica será um blink LED. Ao final desse experimento você terá uma estrutura mínima para desenvolver aplicações para o ATtiny85 em C.</p>
 <p>Bora, colocar em prática!</p>
 <h2 id="recursos-necessarios">Recursos Necessários</h2>
 <ul>
@@ -136,11 +136,11 @@ Como de costume o nosso "Hello, World!" na eletrônica será um blink LED. Ao fi
 <li>Computador com as ferramentas de software instaladas(link)</li>
 </ul>
 <h2 id="hello-world-em-linguagem-c">Hello, World em linguagem C</h2>
-<p>Esse exemplo básico nos dará estrutura para todos nossos exemplos daqui pra frente. Como já mencionado, vamos usar a linguagem C em conjunto com a biblioteca avr lib c. Para esse exemplo você só precisará da placa e as ferramentas de softwares.</p>
+<p>Esse exemplo básico nos dará estrutura para todos nossos exemplos daqui pra frente. Como já mencionado, vamos usar a linguagem C em conjunto com a biblioteca AVR Libc. Para esse exemplo você só precisará da placa Franzininho DIY e as ferramentas de softwares.</p>
 <p>O código exibe a estrutura mínima de um programa em linguagem C para microcontroladores. Se você tem dificuldades com a linguagem C, recomendo que confira os seguintes materiais:
-- Playlist Linguagem C
-- Artigo</p>
-<p>Nesse momento é importante que você se atente a estrutura. Vamos usar alguns registradores para acionar o LED, mas não serão o foco da explicação. Confira os comentários no código a seguir:</p>
+- <a href="https://www.youtube.com/watch?v=l9ZdS8kph0A&amp;list=PLqY1DITQ0sB_5yUBqhnm37J5PxsjrVPKT">Playlist Linguagem C</a>
+- <a href="https://www.slideshare.net/FabioSouza9/resumo-linguagem-c-para-microcontroladores-pic-usando-mikroc">Slideshare</a></p>
+<p>Nesse momento é importante que você se atente a estrutura do código. Vamos usar alguns registradores para acionar o LED, mas não serão o foco da explicação. Confira os comentários no código a seguir:</p>
 <h3 id="codigo">Código</h3>
 <pre><code>#include &lt;avr/io.h&gt;   //biblioteca para acesso aos registradores do MCU
 #include &lt;util/delay.h&gt; //biblioteca para funções de delay
@@ -182,7 +182,7 @@ Running Digispark Uploader...
 Plug in device now... (will timeout in 60 seconds)
 &gt; Please plug in the device (will time out in 60 seconds) ...
 </code></pre>
-<p>Conecte a placa no PC ou pressione o botão de Reset se ela já estiver conectada.</p>
+<p>Conecte a placa no PC ou pressione o botão de RESET se ela já estiver conectada.</p>
 <p>Será iniciado o upload.</p>
 <h3 id="resultados">Resultados</h3>
 <p>Nesse exemplo o LED irá piscar em intervalos de 500 ms (on) e 500 ms (off).</p>
