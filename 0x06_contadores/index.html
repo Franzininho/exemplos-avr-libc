@@ -75,58 +75,6 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Contadores</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#introducao">Introdução</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#recursos-necessarios">Recursos necessários</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#contadores">Contadores</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#contador_v1">Contador_v1</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#codigo">Código</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#montagem">Montagem</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#compilacao-e-upload">Compilação e upload</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#resultado">Resultado</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#analise">Análise</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#contador_v2">Contador_v2</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#codigo_1">Código</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#montagem_1">Montagem</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#compilacao-e-upload_1">Compilação e upload</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#resultado_1">Resultado</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#analise_1">Análise</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#contador_v3">Contador_v3</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#codigo_2">Código</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#montagem_2">Montagem</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#compilacao-e-upload_2">Compilação e upload</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#resultado_2">Resultado</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#analise_2">Análise</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#conclusao">Conclusão</a>
-    </li>
     </ul>
                     </li>
                 </ul>
@@ -165,9 +113,46 @@
           <div role="main">
             <div class="section">
               
-                <p>Glossário:</p>
+                <table>
+<thead>
+<tr>
+<th>title</th>
+<th>summary</th>
+<th>authors</th>
+<th>date</th>
+<th>some_url</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Contador de pulsos externos</td>
+<td>Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY</td>
+<td>Eduardo Dueñas</td>
+<td>05/05/2020</td>
+<td><a href="https://github.com/EduardoDuenas">Meu GitHub</a></td>
+</tr>
+</tbody>
+</table>
+<p>Glossário:
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<h1 id="-setar-colocar-um-novo-valor-em-um-registrador">- Setar: colocar um novo valor em um registrador</h1>
 <ul>
-<li>Setar: colocar um novo valor em um registrador</li>
+<li>Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, muda-lo para valor 1, e clear (limpar), muda-lo para valor 0<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>3ed6d19f45b85b2dcc3c46408d278abd54e70655</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
 <li>Chave tactil/Push button: botão</li>
 <li>Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)</li>
 <li>Resetar: reiniciar</li>
@@ -272,7 +257,7 @@ Plug in device now... (will timeout in 60 seconds)
 <h4 id="resultado"><strong>Resultado</strong></h4>
 <p>Os LEDs devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.</p>
 <h4 id="analise"><strong>Análise</strong></h4>
-<p>Esse código é de simples compreensão usando apenas um <code>for</code> para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se <code>for</code> confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas.</p>
+<p>Esse código é de simples compreensão usando apenas um <code>for</code> para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se for confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas.</p>
 <p>De forma geral esse código funciona, mas há muito desperdício de processamento, pois há muitos momentos que o processador não está fazendo nada, apenas esperando algo acontecer ou um certo tempo passar, nesse tempo ele poderia estar fazendo outra tarefas ou ficar em modo econômico de energia, que veremos nos próximos exemplos.</p>
 <h3 id="contador_v2"><strong>Contador_v2</strong></h3>
 <p>Nesse exemplo vamos começar a usar interrupções para ler os pulsos. Vamos ver quais são as vantagens desse método e o que pode ser melhorado.</p>
