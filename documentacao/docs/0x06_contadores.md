@@ -15,6 +15,7 @@ Glossário:
 - Resetar: reiniciar
 - Timer: circuito eletrônico dedicado a contagem de tempo
 
+
 # **Contador de pulsos externos**
 
 ## **Introdução**    
@@ -25,7 +26,7 @@ Boa prática!
 ## **Recursos necessários**
 
 - Franzininho DIY (com Micronucleos)
-- 4 leds de 3mm
+- 4 LEDs de 3mm
 - 4 resistores de 200Ω
 - 1 resistor de 10kΩ
 - 1 chave tactil
@@ -111,7 +112,7 @@ int main(void){
 
 ![circuito contador](img/0x06/Exemplo_Contador_Circuito.png)
 
-Como mostrado na imagem, os leds são ligados nas saídas PortB[4:1] e o botão no PortB[0].
+Como mostrado na imagem, os LEDs são ligados nas saídas PortB[4:1] e o botão no PortB[0].
 
 #### **Compilação e upload**
 
@@ -131,7 +132,7 @@ Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, 
 
 #### **Resultado**
 
-Os leds devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.
+Os LEDs devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.
 
 #### **Análise**
 
@@ -177,7 +178,7 @@ volatile unsigned char count = 0;   //contador
 
 ISR(INT0_vect){
     cli();                  //Desabilita interrupções globais durante o tratamento da interrupção
-    if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os leds
+    if(debounce(PB2)){      //Se o botão foi realmente apertado incrementa cont e manda para os LEDs
         count++;            //incrementa o contador
         count %= 0x10;      //limpa o excesso
         PORTB = ((PORTB & 0xE7) | ((count>>2)<<3)); //manda os dois bits mais significativos de cont para PB[4:3]
@@ -224,7 +225,7 @@ int main(void){
 
 ![Circuito contador V2](img/0x06/Exemplo_Contador_Circuito_v2.png)
 
-Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2].
+Como mostrado na imagem, os LEDs são ligados nas saídas PORTB[4:3] e [1:0] e o botão na entrada PORTB[2].
 
 #### **Compilação e upload**
 
@@ -244,7 +245,7 @@ Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, 
 
 #### **Resultado**
 
-Assim como no último exemplo, os leds devem mostrar a contagem de eventos, mostrando em binário até 15.
+Assim como no último exemplo, os LEDs devem mostrar a contagem de eventos, mostrando em binário até 15.
 
 #### **Análise**
 
@@ -371,7 +372,7 @@ int main(void){
 
 ![Circuito contador V3](img/0x06/Exemplo_Contador_Circuito_v3.png)
 
-Como mostrado na imagem, os leds são ligados nas saídas PortB[4:3] e [1:0] e o botão na entrada PortB[2], assim como no exemplo dois.
+Como mostrado na imagem, os LEDs são ligados nas saídas PORTB[4:3] e [1:0] e o botão na entrada PORTB[2], assim como no exemplo dois.
 
 #### **Compilação e upload**
 
@@ -391,7 +392,7 @@ Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, 
 
 #### **Resultado**
 
-Assim como nos exemplos anteriores, os leds do circuito devem mostrar a contagem de pulsos até 15 em binário.
+Assim como nos exemplos anteriores, os LEDs do circuito devem mostrar a contagem de pulsos até 15 em binário.
 
 #### **Análise**
 
