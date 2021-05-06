@@ -3,7 +3,7 @@
 |Contador de pulsos externos | Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY | Eduardo Dueñas | 05/05/2020 | [Quem sou eu](https://github.com/EduardoDuenas) |
  
 Glossário:
-- Setar: colocar um novo valor em um registrador
+- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, muda-lo para valor 1, e clear (limpar), muda-lo para valor 0 
 - Chave tactil/Push button: botão
 - Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
 - Resetar: reiniciar
@@ -129,7 +129,7 @@ Os leds devem mostrar a contagem de apertos do botão de forma binária resetand
  
 #### **Análise**
  
-Esse código é de simples compreensão usando apenas um `for` para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se `for` confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas. 
+Esse código é de simples compreensão usando apenas um `for` para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se for confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas. 
  
 De forma geral esse código funciona, mas há muito desperdício de processamento, pois há muitos momentos que o processador não está fazendo nada, apenas esperando algo acontecer ou um certo tempo passar, nesse tempo ele poderia estar fazendo outra tarefas ou ficar em modo econômico de energia, que veremos nos próximos exemplos.
  
