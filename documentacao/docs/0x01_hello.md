@@ -10,28 +10,26 @@ some_url:
 
 ## Introdução
 
-Nesse exemplo vamos dar os nossos primeiros passos na programação da Franzininho DIY usando a AVR LIBC.
+Nesse exemplo vamos dar os nossos primeiros passos na programação da Franzininho DIY usando a [AVR Libc](https://nongnu.org/avr-libc/).
+
 Como de costume o nosso "Hello, World!" na eletrônica será um blink LED. Ao final desse experimento você terá uma estrutura mínima para desenvolver aplicações para o ATtiny85 em C.
 
 Bora, colocar em prática!
-
-
 
 ## Recursos Necessários
 
 - Placa Franzininho DIY(com Micronucleus)
 - Computador com as ferramentas de software instaladas(link)
 
-
 ## Hello, World em linguagem C
 
-Esse exemplo básico nos dará estrutura para todos nossos exemplos daqui pra frente. Como já mencionado, vamos usar a linguagem C em conjunto com a biblioteca avr lib c. Para esse exemplo você só precisará da placa e as ferramentas de softwares.
+Esse exemplo básico nos dará estrutura para todos nossos exemplos daqui pra frente. Como já mencionado, vamos usar a linguagem C em conjunto com a biblioteca AVR Libc. Para esse exemplo você só precisará da placa Franzininho DIY e as ferramentas de softwares.
 
 O código exibe a estrutura mínima de um programa em linguagem C para microcontroladores. Se você tem dificuldades com a linguagem C, recomendo que confira os seguintes materiais:
-- Playlist Linguagem C
-- Artigo
+- [Playlist Linguagem C](https://www.youtube.com/watch?v=l9ZdS8kph0A&list=PLqY1DITQ0sB_5yUBqhnm37J5PxsjrVPKT)
+- [Slideshare](https://www.slideshare.net/FabioSouza9/resumo-linguagem-c-para-microcontroladores-pic-usando-mikroc)
 
-Nesse momento é importante que você se atente a estrutura. Vamos usar alguns registradores para acionar o LED, mas não serão o foco da explicação. Confira os comentários no código a seguir:
+Nesse momento é importante que você se atente a estrutura do código. Vamos usar alguns registradores para acionar o LED, mas não serão o foco da explicação. Confira os comentários no código a seguir:
 
 
 ### Código
@@ -85,7 +83,7 @@ Plug in device now... (will timeout in 60 seconds)
 > Please plug in the device (will time out in 60 seconds) ...
 ```
 
-Conecte a placa no PC ou pressione o botão de Reset se ela já estiver conectada.
+Conecte a placa no PC ou pressione o botão de RESET se ela já estiver conectada.
 
 Será iniciado o upload.
 

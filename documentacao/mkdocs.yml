@@ -10,6 +10,7 @@ nav:
     - Entrada digital: 0x03_entrada_digital.md
     - Timer0: 0x04_timer0.md
     - Timer0 interrupção: 0x05_timer0_int.md
+    - Contadores: 0x06_contadores.md
 
 theme: readthedocs
 
