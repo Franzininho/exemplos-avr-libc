@@ -9,6 +9,7 @@ some_url: https://github.com/EduardoDuenas
 
 
 Glossário:
+
 - Setar: colocar um novo valor em um registrador
 - Chave tactil/Push button: botão
 - Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
