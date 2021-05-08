@@ -4,7 +4,7 @@ summary: Nesses três exemplos vamos explorar gradativamente como fazer um conta
 authors:
     - Eduardo Dueñas
 date: 05/05/2020
-some_url:https://github.com/EduardoDuenas
+some_url: https://github.com/EduardoDuenas
 ---
 
 Glossário:
