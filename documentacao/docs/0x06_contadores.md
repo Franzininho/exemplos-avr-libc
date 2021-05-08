@@ -1,9 +1,14 @@
-| title | summary | authors | date | some_url |
-|-------|---------|---------|------|----------|
-|Contador de pulsos externos | Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY | Eduardo Dueñas | 05/05/2020 | [Meu GitHub](https://github.com/EduardoDuenas) |
-
+---
+title: Contador de pulsos externos
+summary: Nesses três exemplos vamos explorar gradativamente como fazer um contador de eventos externos no Franzininho DIY
+authors:
+    - Eduardo Dueñas
+date: 05/05/2020
+some_url:https://github.com/EduardoDuenas
+---
 
 Glossário:
+
 - Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, muda-lo para valor 1, e clear (limpar), muda-lo para valor 0
 - Chave tactil/Push button: botão
 - Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
