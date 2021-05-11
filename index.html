@@ -57,9 +57,13 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#compilacao-no-linux">Compilação no Linux</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#arduino-ide">Arduino IDE</a>
+    </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#lista-de-exemplos">Lista de exemplos</a>
+    <li class="toctree-l2"><a class="reference internal" href="#repositorios-e-materiais-de-apoio">Repositórios e materiais de apoio</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#saiba-mais">Saiba mais</a>
     </li>
     </ul>
                     </li>
@@ -123,9 +127,9 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="exemplos-avr-libc-franininho-diy">Exemplos AVR LIBC - Franininho DIY</h1>
-<p>O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas areas.</p>
-<p>Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais proxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do MCU) para programação da Franzininho DIY usando a AVR LIB C.</p>
+                <h1 id="exemplos-avr-libc-franininho-diy">Exemplos AVR Libc - Franininho DIY</h1>
+<p>O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas áreas. <a href="https://franzininho.com.br/">Saiba mais sobre o projeto Franzininho</a>.</p>
+<p>Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais próxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do Attiny85) para programação da Franzininho DIY usando a AVR Libc.</p>
 <p>É importante que você tenha o <a href="https://github.com/Franzininho/imagens-franzininho/blob/main/franzininho_diy/Pinagem-completa-Franzininho-DIY-V2RV2.png">pinout da Franzininho DIY</a> para fazer as ligações conforme orientações nos exemplos.</p>
 <p><img alt="pinout Franzininho DIY" src="img/0x00/Pinagem-Franzininho-DIY-V2RV2.png" /></p>
 <h2 id="ferramentas-necessarias">Ferramentas necessárias</h2>
@@ -142,19 +146,20 @@ sudo apt install avr-libc
 sudo apt install binutils-avr
 sudo apt install make
 </code></pre>
-<p>A placa Franzininho deve estar com o bootloader Micronucleus.</p>
+<p>A placa Franzininho deve estar com o bootloader Micronucleus( bottloader oficial para a Franzininho DIY).</p>
 <h3 id="compilacao-no-linux">Compilação no Linux</h3>
 <pre><code class="language-shell">cd ../exemplos-avr-libc/exemplos/01-hello
 make all
 </code></pre>
-<h2 id="lista-de-exemplos">Lista de exemplos</h2>
-<ol>
-<li>Hello - Exemplo para blink LED na placa Franzininho - Apenas para garantir que toolchains está ok</li>
-<li>SaidaDigital - Exemplo para explorar as saídas digitais e o uso de macros</li>
-<li>EntradaDigital - Exemplo para leitura de botão e acionamento de LED</li>
-<li>timer0 - Exibe como usar o timer zero para temporização</li>
-<li>timer0_int - Exibe como usar a interrupção do timer 0 para temporização</li>
-</ol>
+<h3 id="arduino-ide">Arduino IDE</h3>
+<p>Você também poderá reproduzir todos os exemplos apresentados diretamente na IDE Arduino (sem usar o framework Arduino). Isso facilitará no processo de instalação e configuração das ferramentas e também no upload.</p>
+<h2 id="repositorios-e-materiais-de-apoio">Repositórios e materiais de apoio</h2>
+<p>Todos os exemplos serão hospedados no <a href="https://github.com/Franzininho/exemplos-avr-libc/">github do projeto Franzininho</a>. É importante que você use o datasheet do Attiny85 como material de apoio, assim como a documentação da <a href="https://nongnu.org/avr-libc/">AVR Libc</a></p>
+<p>Aproveite essa jornada.</p>
+<h2 id="saiba-mais">Saiba mais</h2>
+<p><a href="https://www.embarcados.com.br/franzininho/">Franzininho – Um Arduino para todos</a></p>
+<p><a href="https://franzininho.gitbook.io/franzininho-docs/">Documentação Franzininho DIY</a></p>
+<p><a href="https://franzininho.github.io/exemplos-avr-libc/">Exemplos AVR LIB C - Franzininho DIY</a></p>
               
             </div>
           </div>
@@ -210,5 +215,5 @@ make all
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-05-08 22:04:25.281375+00:00
+Build Date UTC : 2021-05-11 18:56:13.863020+00:00
 -->
