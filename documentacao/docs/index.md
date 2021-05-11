@@ -35,7 +35,7 @@ sudo apt install binutils-avr
 sudo apt install make
 ```
 
-A placa Franzininho deve estar com o bootloader Micronucleus( bottloader oficial para a Franzininho DIY).
+A placa Franzininho deve estar com o bootloader Micronucleus( bootloader oficial para a Franzininho DIY).
 
 ### Compilação no Linux
 
