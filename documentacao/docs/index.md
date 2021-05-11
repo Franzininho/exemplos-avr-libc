@@ -57,3 +57,4 @@ Aproveite essa jornada.
 ## Saiba mais
 [Franzininho – Um Arduino para todos](https://www.embarcados.com.br/franzininho/)
 [Documentação Franzininho DIY](https://franzininho.gitbook.io/franzininho-docs/)
+[Exemplos AVR LIB C - Franzininho DIY](https://franzininho.github.io/exemplos-avr-libc/)
