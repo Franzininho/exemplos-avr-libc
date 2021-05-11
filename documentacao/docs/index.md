@@ -9,7 +9,7 @@ some_url:
 
 # Exemplos AVR Libc - Franininho DIY
 
-O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas areas. [Saiba mais sobre o projeto Franzininho]().
+O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas áreas. [Saiba mais sobre o projeto Franzininho](https://franzininho.com.br/).
 
 Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais próxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do Attiny85) para programação da Franzininho DIY usando a AVR Libc.
 
@@ -46,7 +46,7 @@ make all
 
 ### Arduino IDE
 
-Você também poderá reproduzir todos os exemplos apresentados diretamente na IDE Arduino (sem usar o Frameworek Arduino). Isso facilitará no processo de instalação e configuração das ferramentas e também no upload.
+Você também poderá reproduzir todos os exemplos apresentados diretamente na IDE Arduino (sem usar o framework Arduino). Isso facilitará no processo de instalação e configuração das ferramentas e também no upload.
 
 ## Repositórios e materiais de apoio
 
