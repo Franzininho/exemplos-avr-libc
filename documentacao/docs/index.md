@@ -7,11 +7,11 @@ date: 2021-04-24
 some_url:
 ---
 
-# Exemplos AVR LIBC - Franininho DIY
+# Exemplos AVR Libc - Franininho DIY
 
-O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas areas.
+O projeto Franzininho tem o objetivo de incentivar as pessoas nas área de eletrônica e programação. Através das oficinas de soldagem e programação na IDE Arduino, diversas pessoas tiveram o seu primeiro contato com essas areas. [Saiba mais sobre o projeto Franzininho]().
 
-Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais proxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do MCU) para programação da Franzininho DIY usando a AVR LIB C.
+Esse material tem o objetivo de mostrar os primeiros passos para programação de microcontroladores usando linguagem C e com abordagem mais próxima ao hardware. Serão apresentados uma sequencia de exemplos(com explicação detalhadas sobre a Arquitetura do Attiny85) para programação da Franzininho DIY usando a AVR Libc.
 
 É importante que você tenha o [pinout da Franzininho DIY](https://github.com/Franzininho/imagens-franzininho/blob/main/franzininho_diy/Pinagem-completa-Franzininho-DIY-V2RV2.png) para fazer as ligações conforme orientações nos exemplos.
 
@@ -35,8 +35,7 @@ sudo apt install binutils-avr
 sudo apt install make
 ```
 
-A placa Franzininho deve estar com o bootloader Micronucleus.
-
+A placa Franzininho deve estar com o bootloader Micronucleus( bottloader oficial para a Franzininho DIY).
 
 ### Compilação no Linux
 
@@ -45,11 +44,16 @@ cd ../exemplos-avr-libc/exemplos/01-hello
 make all
 ```
 
+### Arduino IDE
 
-## Lista de exemplos
+Você também poderá reproduzir todos os exemplos apresentados diretamente na IDE Arduino (sem usar o Frameworek Arduino). Isso facilitará no processo de instalação e configuração das ferramentas e também no upload.
 
-1. Hello - Exemplo para blink LED na placa Franzininho - Apenas para garantir que toolchains está ok
-2. SaidaDigital - Exemplo para explorar as saídas digitais e o uso de macros
-3. EntradaDigital - Exemplo para leitura de botão e acionamento de LED
-4. timer0 - Exibe como usar o timer zero para temporização
-5. timer0_int - Exibe como usar a interrupção do timer 0 para temporização
+## Repositórios e materiais de apoio
+
+Todos os exemplos serão hospedados no [github do projeto Franzininho](https://github.com/Franzininho/exemplos-avr-libc/). É importante que você use o datasheet do Attiny85 como material de apoio, assim como a documentação da [AVR Libc](https://nongnu.org/avr-libc/)
+
+Aproveite essa jornada.
+
+## Saiba mais
+[Franzininho – Um Arduino para todos](https://www.embarcados.com.br/franzininho/)
+[Documentação Franzininho DIY](https://franzininho.gitbook.io/franzininho-docs/)
