@@ -60,3 +60,8 @@ Aproveite essa jornada.
 [Documentação Franzininho DIY](https://franzininho.gitbook.io/franzininho-docs/)
 
 [Exemplos AVR LIB C - Franzininho DIY](https://franzininho.github.io/exemplos-avr-libc/)
+
+
+| Autor | [Fábio Souza](https://github.com/FBSeletronica) |
+|-------|-------------|
+| Data: | 24/04/2021  |

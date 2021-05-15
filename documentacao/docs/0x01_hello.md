@@ -103,3 +103,7 @@ Altere o código para que o led fique 100 ms(on) e 1000 ms (off), veja o efeito.
 Nesse exemplo tivemos o primeiro contato com a programação em linguagem C para microcontroladores. Notamos que devemos incluir as bibliotecas externas através do ```#include``` e que o programa precisa necessariamente ter a função ```int main(void)```.
 
 Dentro da função main temos um loop infinito onde os comandos se repetirão enquanto a placa estiver ligada.
+
+| Autor | [Fábio Souza](https://github.com/FBSeletronica) |
+|-------|-------------|
+| Data: | 24/04/2021  |
