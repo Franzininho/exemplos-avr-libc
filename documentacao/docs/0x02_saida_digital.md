@@ -189,3 +189,7 @@ Dessa forma manipulamos somente os bits desejados, não alterando os valores dos
 ## Desafio
 
 Coloque outro LED no pino PB0 e o acione alternadamente ao pino PB1, ou seja, quando LED no PB0 estiver ligado o LED em PB1 deve apagar e vice-versa.
+
+| Autor | [Fábio Souza](https://github.com/FBSeletronica) |
+|-------|-------------|
+| Data: | 24/04/2021  |
