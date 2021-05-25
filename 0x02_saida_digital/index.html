@@ -114,15 +114,15 @@
             <div class="section">
               
                 <h2 id="introducao">Introdução</h2>
-<p>Agora que já estamos com as ferramentas instaladas e a placa Franzininho DIY em mãos, vamos dar inicio aos estudos dos periféricos internos do ATtiny85.</p>
+<p>Agora que já estamos com as ferramentas instaladas e a placa Franzininho DIY em mãos, vamos dar início aos estudos dos periféricos internos do ATtiny85.</p>
 <p>Nesse artigo vamos explorar os pinos de I/O como saída digital. Ao final, você saberá como acionar dispositivos externos a Franzininho DIY.</p>
 <h2 id="recursos-necessarios">Recursos Necessários</h2>
 <ul>
 <li>Placa Franzininho DIY(com Micronucleus)</li>
-<li>Computador com as ferramentas de software instaladas(link)</li>
+<li>Computador com as ferramentas de <a href="https://franzininho.github.io/exemplos-avr-libc/">software instaladas</a></li>
 </ul>
 <h2 id="pinos-do-attiny85">Pinos do ATtiny85</h2>
-<p>O ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o numero correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):</p>
+<p>O ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o número correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):</p>
 <p><img alt="Pinagem do ATtiny85" src="../img/0x02/pinagem-attiny85.png" /></p>
 <p>Cada pino de I/O pode ser usado como entrada ou saída e também como outras funções nesse momento só vamos trabalhar com os pinos funcionando como GPIO (General Porpouse Input/Output).</p>
 <p>Conforme exibido na imagem acima, temos os seguintes pinos disponíveis no ATtiny85:</p>
@@ -134,19 +134,19 @@
 <li>O pino PB5 é configurado como RESET na Franzininho DIY, sendo assim não poderemos usá-lo como I/O.</li>
 <li>Os pinos PB3 e PB4 são usados para o circuito da USB, sendo assim temos que usá-los com cautela. Geralmente esses pinos são usados apenas como saídas digitais.</li>
 <li>O LED amarelo da placa está ligado ao pino PB1.</li>
-<li>Os pinos PB0 E PB2 não possuem nenhum circuito ligados a eles.</li>
+<li>Os pinos PB0 E PB2 não possuem circuito ligados a eles.</li>
 </ul>
 <h2 id="registradores-responsaveis-pelos-pinos-de-io">Registradores responsáveis pelos pinos de I/O</h2>
 <p>Para trabalhar com os pinos de I/O no ATtiny85 temos 3 registradores:
-- PORTB: Registrador de dados. Responsável pela escrita no pinos;
-- DDRB: Registrador de direção do pino. Responsável pela configuração do pinos para definir se será entrada ou saída;
+- PORTB: Registrador de dados. Responsável pela escrita nos pinos;
+- DDRB: Registrador de direção do pino. Responsável pela configuração dos pinos para definir se será entrada ou saída;
 - PINB: Registrador de entrada da porta. Responsável pela leitura do estado do pino.</p>
-<p>Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontrolador com maior quantidade de pinos teríamos os finas A, B,C, etc. Cada porta só possui no máximo 8 pinos.</p>
+<p>Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontrolador com maior quantidade de pinos teríamos os finais A, B,C, etc. Cada porta só possui no máximo 8 pinos.</p>
 <p>Na seção 10 do datasheet do ATtiny85 temos todos os detalhes para se trabalhar com os I/O. A tabela a seguir, retirada do datasheet, exibe as configurações possíveis para os pinos:</p>
 <p><img alt="configuração GPIO" src="../img/0x02/config-gpio.png" /></p>
 <p>A figura abaixo exibe os registradores responsáveis pelos pino de I/O do PORTB:</p>
 <p><img alt="configuração GPIO" src="../img/0x02/registradores-port-B.png" /></p>
-<p>Note que cada bit dos registradores é responsável por pino sendo indexado pelo numero correspondente ao bit. Dessa forma, se quisermos usar o pino PB1 para acionar o LED, devemos configurar o registrador DDRB da seguinte forma:</p>
+<p>Note que cada bit dos registradores é responsável por pino sendo indexado pelo número correspondente ao bit. Dessa forma, se quisermos usar o pino PB1 para acionar o LED, devemos configurar o registrador DDRB da seguinte forma:</p>
 <table>
 <thead>
 <tr>
@@ -224,8 +224,9 @@ int main(void)
 <p>Bacana, não?</p>
 <p>podemos melhorar a manipulação dos bits dos registradores usando macros. As macros são rotinas que facilitam nossas vidas. Recomendo que se você leia esse artigo para entender sobre as macros e as operações efetuadas: https://www.embarcados.com.br/bits-em-linguagem-c/</p>
 <p>Vamos usar as seguintes macros:</p>
-<h1 id="define-setbitvalorbit-valor-1bit">define setBit(valor,bit) (valor |= (1&lt;&lt;bit))</h1>
-<h1 id="define-tooglebitvalorbit-valor-1bit">define toogleBit(valor,bit) (valor ^= (1&lt;&lt;bit))</h1>
+<pre><code>#define setBit(valor,bit) (valor |= (1&lt;&lt;bit))
+#define toogleBit(valor,bit) (valor ^= (1&lt;&lt;bit))
+</code></pre>
 <p>Os nomes já são auto-explicativos mas vamos verificar como usá-las no programa em C:</p>
 <pre><code class="language-c">/**
  *
