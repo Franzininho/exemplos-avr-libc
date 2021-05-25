@@ -9,19 +9,19 @@ some_url:
 
 ## Introdução
 
-Agora que já estamos com as ferramentas instaladas e a placa Franzininho DIY em mãos, vamos dar inicio aos estudos dos periféricos internos do ATtiny85.
+Agora que já estamos com as ferramentas instaladas e a placa Franzininho DIY em mãos, vamos dar início aos estudos dos periféricos internos do ATtiny85.
 
 Nesse artigo vamos explorar os pinos de I/O como saída digital. Ao final, você saberá como acionar dispositivos externos a Franzininho DIY.
 
 
 ## Recursos Necessários
 - Placa Franzininho DIY(com Micronucleus)
-- Computador com as ferramentas de software instaladas(link)
+- Computador com as ferramentas de [software instaladas](https://franzininho.github.io/exemplos-avr-libc/)
 
 
 ## Pinos do ATtiny85
 
-O ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o numero correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):
+O ATtiny85 possui 8 pinos, sendo que 6 deles podemos usar como I/O (entradas ou saídas) digitais. Os pinos de I/O são nomeados conforme a porta que eles pertencem. Na figura a seguir vemos que os pinos do ATtiny85 são nomeados de PBx, onde x é o número correspondente ao pino no registrador (não se preocupe, vamos ver mais detalhes a seguir):
 
 ![Pinagem do ATtiny85](img/0x02/pinagem-attiny85.png)
 
@@ -40,19 +40,19 @@ Os pinos de I/O são marcados em Amarelo no Pinout da Franzininho DIY
 - O pino PB5 é configurado como RESET na Franzininho DIY, sendo assim não poderemos usá-lo como I/O.
 - Os pinos PB3 e PB4 são usados para o circuito da USB, sendo assim temos que usá-los com cautela. Geralmente esses pinos são usados apenas como saídas digitais.
 - O LED amarelo da placa está ligado ao pino PB1.
-- Os pinos PB0 E PB2 não possuem nenhum circuito ligados a eles.
+- Os pinos PB0 E PB2 não possuem circuito ligados a eles.
 
 
 
 ## Registradores responsáveis pelos pinos de I/O
 
 Para trabalhar com os pinos de I/O no ATtiny85 temos 3 registradores:
-- PORTB: Registrador de dados. Responsável pela escrita no pinos;
-- DDRB: Registrador de direção do pino. Responsável pela configuração do pinos para definir se será entrada ou saída;
+- PORTB: Registrador de dados. Responsável pela escrita nos pinos;
+- DDRB: Registrador de direção do pino. Responsável pela configuração dos pinos para definir se será entrada ou saída;
 - PINB: Registrador de entrada da porta. Responsável pela leitura do estado do pino.
 
 
-Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontrolador com maior quantidade de pinos teríamos os finas A, B,C, etc. Cada porta só possui no máximo 8 pinos.
+Note que todos os registradores terminam com B no final. Isso significa que estamos trabalhando com o PORTB. Caso fosse um microcontrolador com maior quantidade de pinos teríamos os finais A, B,C, etc. Cada porta só possui no máximo 8 pinos.
 
 Na seção 10 do datasheet do ATtiny85 temos todos os detalhes para se trabalhar com os I/O. A tabela a seguir, retirada do datasheet, exibe as configurações possíveis para os pinos:
 
@@ -63,7 +63,7 @@ A figura abaixo exibe os registradores responsáveis pelos pino de I/O do PORTB:
 
 ![configuração GPIO](img/0x02/registradores-port-B.png)
 
-Note que cada bit dos registradores é responsável por pino sendo indexado pelo numero correspondente ao bit. Dessa forma, se quisermos usar o pino PB1 para acionar o LED, devemos configurar o registrador DDRB da seguinte forma:
+Note que cada bit dos registradores é responsável por pino sendo indexado pelo número correspondente ao bit. Dessa forma, se quisermos usar o pino PB1 para acionar o LED, devemos configurar o registrador DDRB da seguinte forma:
 
 | 7  | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
 |----|---|---|---|---|---|---|---|
@@ -129,8 +129,10 @@ podemos melhorar a manipulação dos bits dos registradores usando macros. As ma
 
 Vamos usar as seguintes macros:
 
+```
 #define setBit(valor,bit) (valor |= (1<<bit))
 #define toogleBit(valor,bit) (valor ^= (1<<bit))
+```
 
 Os nomes já são auto-explicativos mas vamos verificar como usá-las no programa em C:
 
