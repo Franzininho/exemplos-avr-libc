@@ -1,6 +1,6 @@
 ---
 title: Instrumento musical com Buzzer
-summary: Nesse exemplo vamos criar um programa que le uma partitura e toca a música escrita travez de um buzzer no Franzininho DIY
+summary: Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer no Franzininho DIY
 authors:
     - Eduardo Dueñas
 date: 05/06/2020
@@ -9,16 +9,16 @@ some_url: https://github.com/EduardoDuenas
 
 Glossário:
 
-- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, muda-lo para valor 1, e clear (limpar), muda-lo para valor 0
+- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, mudá-lo para valor 1, e clear (limpar), mudá-lo para valor 0
 - Resetar: reiniciar
 - Timer: circuito eletrônico dedicado a contagem de tempo
-- Lookup table: tabela de consulta, no contesto de programação é um vetor com informações nescessárias para o programa.
+- Lookup table: tabela de consulta, no contexto de programação é um vetor com informações necessárias para o programa.
 
 # **Instrumento musical com Buzzer**
 
 ## **Introdução** 
 
-Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita travez de um buzzer no Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer.
+Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer no Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer.
 
 Boa prática!
 
@@ -31,13 +31,13 @@ Boa prática!
 
 ## **Fazendo música com o Buzzer**
 
-Nesse exemplo vamos atravez de uma lookup table vamos encinar quais as frequencias de cada nota, e com o uso do timer vamos variar a entrada no buzzer na frequencia da nota que queremos. Com a ajuda de outra tabela, vamos dar para o Franzininho a sequencia das notas que queremos que ele toque, podendo assim, tocar a música que quisermos. 
+Nesse exemplo vamos através de uma lookup table vamos ensinar quais as frequências de cada nota, e com o uso do timer vamos variar a entrada no buzzer na frequência da nota que queremos. Com a ajuda de outra tabela, vamos dar para o Franzininho a sequência das notas que queremos que ele toque, podendo assim, tocar a música que quisermos. 
 
-O buzzer passivo funciona como um pequeno alto falante, enquanto tivermos a tenção nominal na entrada positiva e o terra na entrada negativa o imã dentro dele vai para frente. Por outo lado, quando tivermos terra em ambas ele volta para a posição inicial. Se variarmos entre esses dois estados na frequencia de uma nota musical geraremos uma onda sonora com o tom dela.
+O buzzer passivo funciona como um pequeno alto falante, enquanto tivermos a tensão nominal na entrada positiva e o terra na entrada negativa o imã dentro dele vai para frente. Por outro lado, quando tivermos terra em ambas ele volta para a posição inicial. Se variarmos entre esses dois estados na frequência de uma nota musical geraremos uma onda sonora com o tom dela.
 
-As notas musicais ocidentais em uma escala maior são *Do Do# Re Re# Mi Fa Fa# Sol Sol# Lá Lá# Si* voltando para *Do* depois. Cada nota está a uma distancia de meio tom da outra e a 6 tons de sua proxima oitava, que é a mesma nota porém mais fina.
+As notas musicais ocidentais em uma escala maior são *Do Do# Re Re# Mi Fa Fa# Sol Sol# Lá Lá# Si* voltando para *Do* depois. Cada nota está a uma distância de meio tom da outra e a 6 tons de sua próxima oitava, que é a mesma nota porém mais fina.
 
-Olhando pela frequência temos que partindo de *Lá* da terceira oitava, 440Hz, cada *Lá* uma oitava acima tem o dobro da frequência e cada oitava a baixo tem metade da frequência. Já para subir cada semi tom, basta multiplicar por 2^(1/12), ou para x semi tons, 2^(x/12).
+Olhando pela frequência temos que partindo de *Lá* da terceira oitava, 440Hz, cada *Lá* uma oitava acima tem o dobro da frequência e cada oitava a baixo tem metade da frequência. Já para subir cada semitom, basta multiplicar por 2^(1/12), ou para x semitons, 2^(x/12).
 
 ### **Código**
 ```c
@@ -135,11 +135,11 @@ int main(){
 
 ![circuito buzzer](img/0x07/Exemplo_Buzzer_Circuito.png)
 
-Dependendo do buzzer é necessário conectar os jumpers diretamente nos pinos do buzzer ao invés de colocalo na protoboard.
+Dependendo do buzzer é necessário conectar os jumpers diretamente nos pinos do buzzer ao invés de colocá-lo na protoboard.
 
 ### **Compilação e upload**
 
-Para compilar o programa, acesse a pasta do exemplo e de o comando `make`:
+Para compilar o programa, acesse a pasta do exemplo e dê o comando `make`:
 ```
 exemplos-avr-libc/exemplos/buzzer$ make
 ```
@@ -155,11 +155,11 @@ Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, 
 
 ### **Resultado**
 
-O buzzer deve tocar Parabens para você e deve continuar em loop até a placa ser desligada.
+O buzzer deve tocar Parabéns para você e deve continuar em loop até a placa ser desligada.
 
 ## **Desfecho**
 
-O buzzer passivo éum componente muito versátil com o qual podemos, não só, tocar músicas como tambem gerar diversos tipos de efeitos sonoros, tudo que precisamos é entender como gerar o som que queremos. Alem disso vimos como podemos usar interrupções de timer para funções que precisão de Real Time, ou seja, que precisam de precisão de tempo.
+O buzzer passivo é um componente muito versátil com o qual podemos, não só, tocar músicas como também gerar diversos tipos de efeitos sonoros, tudo que precisamos é entender como gerar o som que queremos. Além disso vimos como podemos usar interrupções de timer para funções que precisam de Real Time, ou seja, que precisam de precisão de tempo.
 
 
 | Autor | [Eduardo Dueñas](https://github.com/EduardoDuenas) |
