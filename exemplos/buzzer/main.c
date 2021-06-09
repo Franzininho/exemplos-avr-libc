@@ -6,6 +6,7 @@
  * @version 1.0
  * @date 21/04/2021
  * 
+ * última modificação: 15/05/2021
  * 
  */
 
@@ -28,7 +29,8 @@ enum notas{Pausa,Do, DoS, Re, ReS, Mi, Fa, FaS, Sol, SolS, La, LaS, Si, DoM, DoS
 long f[16] = { 255L, (long)CONT(5232L), (long)CONT(5543L), (long)CONT(5873L), (long)CONT(6222L), (long)CONT(6592L), (long)CONT(6984L),
              (long)CONT(7400L), (long)CONT(7840L), (long)CONT(8306L), (long)CONT(8800L), (long)CONT(9323L), (long)CONT(9877L),
              (long)CONT(10465L), (long)CONT(11087L), (long)CONT(11746L)};
-            /*{0xFF,123, 116, 110, 104, 98, 92, 87, 82, 78, 73, 69, 65, 62, 58, 54, };*/   //valor a ser colocado na flag do timer para cada nota
+            //{0xFF,123, 116, 110, 104, 98, 92, 87, 82, 78, 73, 69, 65, 62, 58, 54}
+            //Lookup table com os valores de cada nota a ser colocado na flag do timer
             
 char Partitura[NumNotas] = {Re,Mi,Mi,Re,Sol,FaS,FaS,FaS,Re,Mi,Mi,Re,La,Sol,Sol,Sol,Re,ReM,ReM,Si,Sol,FaS,FaS,Mi,
                             DoM,Si,Si,Sol,La,Sol,Sol,Sol};                          //partitura da música
