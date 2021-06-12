@@ -148,8 +148,8 @@ O uso de macros facilitou a manipulação dos bits nos registradores. Recomendo 
 Para leitura do estado do pino, ou seja, se o botão está solto ou pressionado, fazemos um teste a cada iteração no loop infinto. Quando o botão é pressionado o nível logico no pino vai para 0 e quando solto permanece em 1. Conforme o teste 0 liga o LED e 1 apaga o LED.
 
 Assim, o funcionamento será:
-Botão Solto = LED apagado
-Botão Pressionado = LED Aceso
+- Botão Solto = LED apagado
+- Botão Pressionado = LED Aceso
 
 Bacana, não?
 
@@ -157,3 +157,8 @@ Bacana, não?
 ## Desafio
 
 Faça com com que o LED mude estado e permaneça ao soltar o botão, funcionando como uma tecla liga/desliga.
+
+
+| Autor | [Fábio Souza](https://github.com/FBSeletronica) |
+|-------|-------------|
+| Data: | 24/04/2021  |
