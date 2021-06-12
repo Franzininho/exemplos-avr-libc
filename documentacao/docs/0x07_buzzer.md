@@ -7,18 +7,12 @@ date: 05/06/2020
 some_url: https://github.com/EduardoDuenas
 ---
 
-Glossário:
-
-- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, mudá-lo para valor 1, e clear (limpar), mudá-lo para valor 0
-- Resetar: reiniciar
-- Timer: circuito eletrônico dedicado a contagem de tempo
-- Lookup table: tabela de consulta, no contexto de programação é um vetor com informações necessárias para o programa.
 
 # **Instrumento musical com Buzzer**
 
-## **Introdução** 
+## **Introdução**
 
-Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer no Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer.
+Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer no Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer0.
 
 Boa prática!
 
@@ -31,7 +25,7 @@ Boa prática!
 
 ## **Fazendo música com o Buzzer**
 
-Nesse exemplo vamos através de uma lookup table vamos ensinar quais as frequências de cada nota, e com o uso do timer vamos variar a entrada no buzzer na frequência da nota que queremos. Com a ajuda de outra tabela, vamos dar para o Franzininho a sequência das notas que queremos que ele toque, podendo assim, tocar a música que quisermos. 
+Nesse exemplo vamos através de uma *lookup table* vamos ensinar quais as frequências de cada nota, e com o uso do timer vamos variar a entrada no buzzer na frequência da nota que queremos. Com a ajuda de outra tabela, vamos dar para o Franzininho a sequência das notas que queremos que ele toque, podendo assim, tocar a música que quisermos.
 
 O buzzer passivo funciona como um pequeno alto falante, enquanto tivermos a tensão nominal na entrada positiva e o terra na entrada negativa o imã dentro dele vai para frente. Por outro lado, quando tivermos terra em ambas ele volta para a posição inicial. Se variarmos entre esses dois estados na frequência de uma nota musical geraremos uma onda sonora com o tom dela.
 
@@ -41,17 +35,17 @@ Olhando pela frequência temos que partindo de *Lá* da terceira oitava, 440Hz, 
 
 ### **Código**
 ```c
-//**
- * 
+/***********************************************
+ *
  * @file main.c
  * @author Eduardo Dueñas / Daniel Quadros
  * @brief Exemplo tocar musicas usando buzzer
  * @version 1.0
  * @date 21/04/2021
- * 
+ *
  * última modificação: 15/05/2021
- * 
- */
+ *
+ **********************************************/
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -74,16 +68,16 @@ long f[16] = { 255L, (long)CONT(5232L), (long)CONT(5543L), (long)CONT(5873L), (l
              (long)CONT(10465L), (long)CONT(11087L), (long)CONT(11746L)};
             //{0xFF,123, 116, 110, 104, 98, 92, 87, 82, 78, 73, 69, 65, 62, 58, 54}
             //Lookup table com os valores de cada nota a ser colocado na flag do timer
-            
+
 char Partitura[NumNotas] = {Re,Mi,Mi,Re,Sol,FaS,FaS,FaS,Re,Mi,Mi,Re,La,Sol,Sol,Sol,Re,ReM,ReM,Si,Sol,FaS,FaS,Mi,
                             DoM,Si,Si,Sol,La,Sol,Sol,Sol};                          //partitura da música
 volatile char cont = 0;                                          //local da partitura
 volatile long aux = 0;
 
 
-//tratamento de interrupção 
+//tratamento de interrupção
 ISR (TIM0_COMPB_vect){  //vetor de comparação B
-    if (aux<=0xff) {                        //se aux menor que 8bits 
+    if (aux<=0xff) {                        //se aux menor que 8bits
         OCR0B=(TCNT0+aux)&(0xff);           //mandar aux para o contador
         aux=f[Partitura[cont]];             //reinicia o aux
         toogleBit(PORTB,PB1);               //inverter o buzzer
@@ -116,7 +110,7 @@ int main(){
        OCR0B=TCNT0;
        aux-=0xff;
     }
-    
+
 
     //loop infinito
     for(;;){                       
@@ -140,9 +134,11 @@ Dependendo do buzzer é necessário conectar os jumpers diretamente nos pinos do
 ### **Compilação e upload**
 
 Para compilar o programa, acesse a pasta do exemplo e dê o comando `make`:
+
 ```
 exemplos-avr-libc/exemplos/buzzer$ make
 ```
+
 Como já temos o makerfile configurado na pasta, será feita compilação e deve aparecer a seguinte mensagem:
 
 ```
@@ -151,15 +147,26 @@ Running Digispark Uploader...
 Plug in device now... (will timeout in 60 seconds)
 > Please plug in the device (will time out in 60 seconds) ...
 ```
+
 Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, aperte o botão de reset para iniciar o upload.
+
 
 ### **Resultado**
 
 O buzzer deve tocar Parabéns para você e deve continuar em loop até a placa ser desligada.
 
-## **Desfecho**
+
+## **Conclusão**
 
 O buzzer passivo é um componente muito versátil com o qual podemos, não só, tocar músicas como também gerar diversos tipos de efeitos sonoros, tudo que precisamos é entender como gerar o som que queremos. Além disso vimos como podemos usar interrupções de timer para funções que precisam de Real Time, ou seja, que precisam de precisão de tempo.
+
+
+## Glossário
+
+- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, mudá-lo para valor 1, e clear (limpar), mudá-lo para valor 0
+- Resetar: reiniciar
+- Timer: circuito eletrônico dedicado a contagem de tempo
+- Lookup table: tabela de consulta, no contexto de programação é um vetor com informações necessárias para o programa.
 
 
 | Autor | [Eduardo Dueñas](https://github.com/EduardoDuenas) |

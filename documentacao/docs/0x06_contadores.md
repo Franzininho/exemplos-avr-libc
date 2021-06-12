@@ -7,14 +7,6 @@ date: 05/05/2021
 some_url: https://github.com/EduardoDuenas
 ---
 
-Glossário:
-
-- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, muda-lo para valor 1, e clear (limpar), muda-lo para valor 0
-- Chave tactil/Push button: botão
-- Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
-- Resetar: reiniciar
-- Timer: circuito eletrônico dedicado a contagem de tempo
-
 
 # **Contador de pulsos externos**
 
@@ -407,6 +399,14 @@ O uso de interrupções do timer para o debounce diminui consideravelmente o tem
 ## **Conclusão**
 
 De forma geral, todas as três formas de se fazer o código funcionam, e ao servirem seu propósito não estão erradas. Porém, como programadores, principalmente de sistemas embarcados, é uma ótima prática conseguirmos fazer um código eficiente, de forma a não se tornar um empecilho no futuro, seja por usarmos muita memória ou deixarmos o processador muito lento e termos que refazer algo pronto do zero. Por isso é importante saber quais são as vantagens e desvantagens de cada método para podermos sempre utilizar o que melhor se adequa às nossas necessidades.
+
+## Glossário
+
+- Setar: colocar um novo valor em um registrador. Para um bit é convencionado setar, muda-lo para valor 1, e clear (limpar), muda-lo para valor 0
+- Chave tactil/Push button: botão
+- Debounce: correção do efeito de bouncing (efeito que ocorre em chaves que fazem rápidas conexões e desconexões antes de se estabilizar)
+- Resetar: reiniciar
+- Timer: circuito eletrônico dedicado a contagem de tempo
 
 
 | Autor | [Eduardo Dueñas](https://github.com/EduardoDuenas) |
