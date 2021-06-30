@@ -91,6 +91,8 @@ Será iniciado o upload.
 
 Nesse exemplo o LED irá piscar em intervalos de 500 ms (on) e 500 ms (off).
 
+<iframe src="https://wokwi.com/arduino/projects/302846728334213645?view=diagram" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
+
 No próximo exemplo vamos detalhar sobre os registradores de IO. Nesse momento, além da estrutura inicial é importante que você entenda como usar a função ```_delay_ms()```.
 
 Essa função espera o tempo passado em milissegundos.
