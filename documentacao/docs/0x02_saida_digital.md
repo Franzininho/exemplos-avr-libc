@@ -123,6 +123,8 @@ int main(void)
 
 O exemplo acima pisca o LED em intervalos de 250 ms. A configuração do pino PB1 como saída foi feito colocando o bit1 de DDRB em 1. Já para ligar e desligar o LED foi manipulado o bit 1 de PORTB, hora em 1 hora em 0.
 
+<iframe src="https://wokwi.com/arduino/projects/302847336216789517?view=diagram" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
+
 Bacana, não?
 
 podemos melhorar a manipulação dos bits dos registradores usando macros. As macros são rotinas que facilitam nossas vidas. Recomendo que se você leia esse artigo para entender sobre as macros e as operações efetuadas: https://www.embarcados.com.br/bits-em-linguagem-c/
@@ -187,6 +189,7 @@ int main(void)
 
 Dessa forma manipulamos somente os bits desejados, não alterando os valores dos outros que poderão ser usados para outras aplicações.
 
+<iframe src="https://wokwi.com/arduino/projects/302847490137260557?view=diagram" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
 
 ## Desafio
 
