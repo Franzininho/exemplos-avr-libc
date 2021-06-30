@@ -79,8 +79,9 @@ int main(){
     for(;;){                       
         long i;
         for(i=0;i<1000000L;i++){
+            asm ("nop");
             //long j;
-            //for(j=0;j<1;j++){}
+            //for(j=0;j<1;j++){asm ("nop");}
         }       //espera um tempo (altere o valor central para acelerar ou desacelerar a música)
         cont++;                         //avança na partitura
         if (cont >= NumNotas)cont=0;    //toca de novo
