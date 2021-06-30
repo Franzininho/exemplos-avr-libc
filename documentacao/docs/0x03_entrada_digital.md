@@ -151,6 +151,8 @@ Assim, o funcionamento será:
 - Botão Solto = LED apagado
 - Botão Pressionado = LED Aceso
 
+<iframe src="https://wokwi.com/arduino/projects/302847729038524937?view=diagram" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
+
 Bacana, não?
 
 
