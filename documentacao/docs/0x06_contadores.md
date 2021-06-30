@@ -126,6 +126,8 @@ Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, 
 
 Os LEDs devem mostrar a contagem de apertos do botão de forma binária resetando em 0x10 ou quando resetada a placa.
 
+<iframe src="https://wokwi.com/arduino/projects/302199144424931848?view=diagram" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
+
 #### **Análise**
 
 Esse código é de simples compreensão usando apenas um `for` para checar continuamente se o botão foi apertado, chamando uma função debounce caso a leitura seja 1, incrementando o contador se for confirmado que a leitura é válida, esperando  o botão ser solto e mandando o valor para as saídas.
