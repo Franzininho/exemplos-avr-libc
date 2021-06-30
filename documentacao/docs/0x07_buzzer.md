@@ -155,6 +155,8 @@ Conecte a placa em uma entrada USB ou, caso a Franzininho já esteja conectada, 
 
 O buzzer deve tocar Parabéns para você e deve continuar em loop até a placa ser desligada.
 
+<iframe src="https://wokwi.com/arduino/projects/302834828095521293?view=diagram" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
+
 
 ## **Conclusão**
 
