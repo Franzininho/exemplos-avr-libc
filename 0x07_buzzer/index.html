@@ -139,7 +139,7 @@
               
                 <h1 id="instrumento-musical-com-buzzer"><strong>Instrumento musical com Buzzer</strong></h1>
 <h2 id="introducao"><strong>Introdução</strong></h2>
-<p>Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer no Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer0.</p>
+<p>Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer na Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer0.</p>
 <p>Boa prática!</p>
 <h2 id="recursos-necessarios"><strong>Recursos necessários</strong></h2>
 <ul>
@@ -235,9 +235,9 @@ int main(){
     for(;;){                       
         long i;
         for(i=0;i&lt;1000000L;i++){
+            asm (&quot;nop&quot;);
             //long j;
-            //for(j=0;j&lt;1;j++){}
-        }       //espera um tempo (altere o valor central para acelerar ou desacelerar a música)
+            //for(j=0;j&lt;1;j++){asm (&quot;nop&quot;);}
         cont++;                         //avança na partitura
         if (cont &gt;= NumNotas)cont=0;    //toca de novo
     }
