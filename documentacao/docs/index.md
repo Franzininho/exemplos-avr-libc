@@ -48,6 +48,14 @@ make all
 
 Você também poderá reproduzir todos os exemplos apresentados diretamente na IDE Arduino (sem usar o framework Arduino). Isso facilitará no processo de instalação e configuração das ferramentas e também no upload.
 
+
+### Wokwi
+
+Você também pode usar o simulador Wokwi para reproduzir os projetos apresentados nessa série. Aproveite o template de projeto abaixo:
+
+<iframe src="https://wokwi.com/arduino/new?template=franzininho" style="border: 0;" width="100%" height="458px" frameborder="0"></iframe>
+
+
 ## Repositórios e materiais de apoio
 
 Todos os exemplos serão hospedados no [github do projeto Franzininho](https://github.com/Franzininho/exemplos-avr-libc/). É importante que você use o datasheet do Attiny85 como material de apoio, assim como a documentação da [AVR Libc](https://nongnu.org/avr-libc/)
