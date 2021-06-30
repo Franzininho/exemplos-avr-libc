@@ -12,7 +12,7 @@ some_url: https://github.com/EduardoDuenas
 
 ## **Introdução**
 
-Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer no Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer0.
+Nesse exemplo vamos criar um programa que lê uma partitura e toca a música escrita através de um buzzer na Franzininho DIY. Vamos aprender como se usar um buzzer passivo para gerar cada nota musical com ajuda do timer0.
 
 Boa prática!
 
@@ -116,9 +116,9 @@ int main(){
     for(;;){                       
         long i;
         for(i=0;i<1000000L;i++){
+            asm ("nop");
             //long j;
-            //for(j=0;j<1;j++){}
-        }       //espera um tempo (altere o valor central para acelerar ou desacelerar a música)
+            //for(j=0;j<1;j++){asm ("nop");}
         cont++;                         //avança na partitura
         if (cont >= NumNotas)cont=0;    //toca de novo
     }
