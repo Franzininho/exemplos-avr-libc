@@ -26,12 +26,35 @@ make all
 
 ## Contribuindo
 
-- Incluir pasta do exemplos
-- Incluir md do exemplo na documentação
+- Incluir exemplos em uma pasta dentro de exemplos
 
+## Todo list
 
-## Documentação
+| Exemplos                       | Status | Nota                                    |
+|--------------------------------|:------:|-----------------------------------------|
+| Primeiros Passos               |    🟢   |                                         |
+| Hello, World!                  |    🟢   |                                         |
+| Saída Digital                  |    🟢   |                                         |
+| Entrada Digital                |    🟢   |                                         |
+| Timer 0                        |    🟢   |                                         |
+| Timer 0 - Interrupção          |    🟢   |
+| Contador de pulsos externos    |    🟢   |                                         |
+| Instrumento musical com Buzzer |    🟢   |                                         |
+| Interrupção externa            |    🔴   |                                         |
+| Timer0 CTC                     |    🔴   |                                         |
+| Timer0 PWM                     |    🔴   |                                         |
+| Timer 1                        |    🔴   |                                         |
+| Timer 2 Interrupção            |    🔴   |                                         |
+| Timer 1 PWM                    |    🔴   |                                         |
+| Conversor AD                   |    🔴   |                                         |
+| I2C                            |    🔴   |                                         |
+| SPI                            |    🔴   |                                         |
+| EEPROM                         |    🔴   |                                         |
+| Configuração de Clock          |    🔴   |                                         |
+| Sleep                          |    🔴   |                                         |
+| Fuse bits                      |    🔴   |                                         |
 
-- Instação Mkdocs: https://www.mkdocs.org/#installation
-- Enviar pull Request do exemplo.
-- Não fazer o deploy no gh-pages. Isso será feito após aprovção do PR
+Legenda:  
+- 🟢 Feito
+- 🟡 Em progresso
+- 🔴 Ainda não implementado
