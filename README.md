@@ -1,4 +1,4 @@
-# eExemplos AVR LIB C - Franzininho DIY
+# Exemplos AVR LIB C - Franzininho DIY
 
 Exemplos em linguagem C baixo nível
 
